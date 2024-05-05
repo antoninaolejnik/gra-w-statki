@@ -27,4 +27,4 @@ osobna klasa z wszystkimi stałymi
 pole typu enum
 rodzaje statków
 plansza cała - indeksy tablicowe
-Biblioteki/Framework: JavaFX
+Biblioteki/Framework: JavaFX/
