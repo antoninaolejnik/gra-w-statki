@@ -4,8 +4,9 @@ public class Statek {
         private int dlugosc;
         private int ilosc;
 //        private int [][] pola;
-        private int [] pola;
-        boolean czyZbity;
+        public int [] pola;
+        public int indeks;
+        boolean czyZbity = false;
         //wspolrzedne poczatku
         static int x;
         static int y;
@@ -45,14 +46,14 @@ public class Statek {
                 for(int i=0;i<dlugosc;i++){
                     if(y+i>=10 ||y+i<0)
                         return false;
-                    if(plansza.plansza[x][y+i] == 1) return false;
+                    if(plansza.plansza[x][y+i] != -2) return false;
 
                 }
             }else{
                 for(int i=0;i<dlugosc;i++){
                     if(x+i>=10 || x+i<0)
                         return false;
-                    if(plansza.plansza[x+i][y] == 1) return false;
+                    if(plansza.plansza[x+i][y] != -2) return false;
                 }
             }
             return true;
@@ -63,7 +64,7 @@ public class Statek {
             for(int i=0; i<dlugosc; i++)
             {
                 pola[i]=10*y+x;
-                System.out.println("pola[i]: " + pola[i]);
+                //System.out.println("pola[i]: " + pola[i]);
             }
 
         }
@@ -77,11 +78,27 @@ public class Statek {
 
             if(!czyPionowo) {
                 //poziomo
-                for (int i = 0; i < dlugosc; i++)
-                    plansza.ustawPole(x+i, y, 1);
+                for (int i = 0; i < dlugosc; i++) {
+                    plansza.ustawNaPlanszy(x + i, y, indeks);
+                    if(y>0)  plansza.ustawNaPlanszy(x + i, y - 1, -1);
+                    if(y<9)  plansza.ustawNaPlanszy(x + i, y + 1, -1);
+                }
+                for(int i=0;i<3;i++)
+                {
+                    if(x-1>=0 && x-1<10 && y-1+i>=0 && y-1+i<10) plansza.ustawNaPlanszy(x -1, y-1+i, -1);
+                    if(x+dlugosc>=0 && x+dlugosc<10 && y-1+i>=0 && y-1+i<10) plansza.ustawNaPlanszy(x +dlugosc, y-1+i, -1);
+                }
             } else {
-                for(int i=0; i<dlugosc;i++)
-                    plansza.ustawPole(x, y+i, 1);
+                for(int i=0; i<dlugosc;i++) {
+                    plansza.ustawNaPlanszy(x, y + i, indeks);
+                    if(x>0)  plansza.ustawNaPlanszy(x -1, y +i, -1);
+                    if(x<9)  plansza.ustawNaPlanszy(x +1, y +i, -1);
+                }
+                for(int i=0;i<3;i++)
+                {
+                    if(x-1+i>=0 && x-1+i<10 && y-1>=0 && y-1<10) plansza.ustawNaPlanszy(x -1+i, y-1, -1);
+                    if(x+i-1>=0 && x+i-1<10 && y+dlugosc>=0 && y+dlugosc<10) plansza.ustawNaPlanszy(x +i-1, y+dlugosc, -1);
+                }
             }
         }
 

@@ -14,6 +14,11 @@ public class Stale {
             {2,2,1}
             //pierwsza kolumna nr rodzaju, druga dlugosc, ilosc
     };
+
+//    public static final int[][] dane ={
+//            {1,1,1}
+//            //pierwsza kolumna nr rodzaju, druga dlugosc, ilosc
+//    };
 //    static public Pair <Integer, String> [] nazwy;
     public static String [] nazwy = {
         "jednomasztowiec", "dwumasztowiec", "trójmasztowiec", "czteromasztowiec"

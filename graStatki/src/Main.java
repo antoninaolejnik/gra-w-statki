@@ -10,7 +10,7 @@ public class Main {
         Gracz graczA = new Gracz();
         WyczyscTerminal.clearScreen();
 
-
+         Gra gra1 = new Gra(graczA,graczB);
 
     }
 }

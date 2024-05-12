@@ -5,12 +5,12 @@ public class Plansza {
         plansza = new int[10][10];
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                plansza[i][j] = 0;
+                plansza[i][j] = -2;
             }
         }
     }
 
-    public void ustawPole(int x, int y, int wartość) {
+    public void ustawNaPlanszy(int x, int y, int wartość) {
         if (x >= 0 && x < 10 && y >= 0 && y < 10) {
             plansza[x][y] = wartość; //!!!
         } else {
@@ -24,7 +24,8 @@ public class Plansza {
         for (int i = 0; i < 10; i++) {
             System.out.print("| ");
             for (int j = 0; j < 10; j++) {
-                if(plansza[j][i] ==0)System.out.print(" " + " | ");
+                if(plansza[j][i] == -2 )System.out.print(" " + " | ");
+                else if(plansza[j][i] == -1 )System.out.print(" " + " | ");
                 else System.out.print(plansza[j][i] + " | "); //!!!
             }
             System.out.println("\n- - - - - - - - - - - - - - - - - - - - - ");
