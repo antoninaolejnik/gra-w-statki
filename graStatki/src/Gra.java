@@ -33,10 +33,13 @@ public class Gra {
     public boolean czyTrafnyStrzal (Gracz gracz, int x, int y)
     {
         if (x >= 0 && x < 10 && y >= 0 && y < 10) {
-            //if(gracz.planszaPrzeciwnika[x][y] == 1)
+            if(gracz.planszaPrzeciwnika.plansza[x][y] == 1){
+
+            }
         } else {
             return true;
         }
+        return false;
     }
 
 }

@@ -5,8 +5,10 @@ public class Main {
         System.out.println("Witaj w grze w statki");
         System.out.println("Gracz 1 wpisuje swoje statki:");
         Gracz graczB = new Gracz();
+        WyczyscTerminal.clearScreen();
         System.out.println("Gracz 2 wpisuje swoje statki:");
         Gracz graczA = new Gracz();
+        WyczyscTerminal.clearScreen();
 
 
 

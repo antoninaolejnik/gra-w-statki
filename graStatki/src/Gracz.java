@@ -18,13 +18,14 @@ public class Gracz {
             {
                 System.out.println("napisz wsporzedne "+ Stale.nazwy[i]);
                 int x,y,z;
-                Boolean zz;
+                boolean zz=true;
                 Scanner scanner = new Scanner(System.in);
                 x= scanner.nextInt(); //tutaj to powinno byc char!!!!!
                 y= scanner.nextInt();
-                System.out.println("wpisz 1 jak ma byc pionowo, 0 wpp");
-                z= scanner.nextInt(); //true- pionowo
-                if(z==1) zz=true; else zz=false;
+                if(Stale.dane[i][1]!=1){
+                    System.out.println("wpisz 1 jak ma byc pionowo, 0 wpp");
+                    z= scanner.nextInt(); //true- pionowo
+                    if(z==1) zz=true; else zz=false;}
                 Statek aktualnyStatek = statki.wszystkie[i].rodzaj[j];
                 aktualnyStatek = new Statek(x,y,Stale.dane[i][0],zz);
                 while(!aktualnyStatek.sprawdzStatek(this.planszaPrzeciwnika)){
