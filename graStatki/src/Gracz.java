@@ -18,7 +18,7 @@ public class Gracz {
             //Statki_rodzaj pom = new Statki_rodzaj(Stale.rodzaje[i][1], Stale.rodzaje[i][2]);
             for(int j = 0; j<Stale.dane[i][2]; j++)
             {
-                System.out.println("napisz wsporzedne "+ Stale.nazwy[i]);
+                System.out.println("napisz wspolrzedne "+ Stale.nazwy[i]);
                 int x,y,z;
                 boolean zz=true;
                 Scanner scanner = new Scanner(System.in);

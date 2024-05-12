@@ -24,7 +24,7 @@ public class Gra {
 
 
     public void strzal(Gracz gracz) {
-        System.out.println("strzal gracz");
+//        System.out.println("strzal gracz");
         int x, y;
         Scanner scanner = new Scanner(System.in);
         x = scanner.nextInt();
@@ -59,36 +59,49 @@ public class Gra {
 
 
     public boolean czyTrafnyStrzal(Gracz gracz, int x, int y) {
-        System.out.println("czytraf");
+//        System.out.println("czytraf");
         if (x >= 0 && x < 10 && y >= 0 && y < 10) {
             System.out.println("if");
             if (gracz.planszaPrzeciwnika.plansza[x][y] >= 0) {
                 //trafione cos
-                System.out.println("trafcos");
+//                System.out.println("trafcos");
                 gracz.planszaWypisywana.plansza[x][y] = 2;
                 int ktory = gracz.planszaPrzeciwnika.plansza[x][y] % 10;
                 int rodzaj = (gracz.planszaPrzeciwnika.plansza[x][y] - ktory) / 10;
                 //System.out.println("to dlugie cos: " +gracz.statki.wszystkie[rodzaj].dlugosc);
-                for (int i = 0; i < gracz.statki.wszystkie[rodzaj].dlugosc; i++) {
-                    //System.out.println("iffa: "+gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i]);
+//                System.out.println("iff0: "+gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[0]);
+//                System.out.println("iff1: "+gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[1]);
 
-                    //System.out.println("iffC: "+10 * y + x);
+                for (int i = 0; i < gracz.statki.wszystkie[rodzaj].dlugosc; i++) {
+//                    System.out.println("iffa: "+gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i]);
+
+//                    System.out.println("iffC: "+10 * y + x);
+//                    if (gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i] == 10 * y + x) {
                     if (gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i] == 10 * y + x) {
-                        //System.out.println("iffB: "+gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i]);
+//                        System.out.println("iffB: "+gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i]);
                         gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i] = -3;
                         gracz.statki.wszystkie[rodzaj].rodzaj[ktory].czyZbity = true;
+//                        boolean pom = true;
                         for (int j = 0; j < gracz.statki.wszystkie[rodzaj].dlugosc; j++) {
                             //System.out.println("iff: "+gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[j]);
                             if (gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[j] != -3) {
-                                System.out.println("zmiana czyzbity na false: "+ gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[j]);
+//                                System.out.println("zmiana czyzbity na false: "+ gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[j]);
                                 gracz.statki.wszystkie[rodzaj].rodzaj[ktory].czyZbity = false;
+//                                pom=false;
+                                break; //??
                             }
                         }
+//                        if(!gracz.statki.wszystkie[rodzaj].rodzaj[ktory].czyZbity && !pom)
+//                        {
+//                            pom = true;
+//                            break;
+//                        }
                     }
                 }
+//                System.out.println("czy czyzbity jest false: "+ gracz.statki.wszystkie[rodzaj].rodzaj[ktory].czyZbity);
                 if (gracz.statki.wszystkie[rodzaj].rodzaj[ktory].czyZbity) {
                     //zbilismy caly statek
-                    System.out.println("czyzbity: "+gracz.statki.ilosc_aktywnych);
+//                    System.out.println("czyzbity: "+gracz.statki.ilosc_aktywnych);
                     gracz.statki.ilosc_aktywnych--;
                     if (gracz.statki.ilosc_aktywnych == 0) {
                         //koniec gry

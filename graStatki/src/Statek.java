@@ -63,8 +63,20 @@ public class Statek {
         {
             for(int i=0; i<dlugosc; i++)
             {
-                pola[i]=10*y+x;
-                //System.out.println("pola[i]: " + pola[i]);
+
+//                pola[i]=10*y+x;
+//                pola[i]=10*y+x+i;
+//                pola[i]=10*x+y+i; //xd
+//                System.out.println("pola["+i+"]: " + pola[i]);
+//
+                if(czyPionowo)
+                {
+                    pola[i]=10*(y+i)+x;
+//                    System.out.println("pionpola["+i+"]: " + pola[i]);
+                } else {
+                    pola[i]=10*x+y+i;
+//                    System.out.println("pozipola["+i+"]: " + pola[i]);
+                }
             }
 
         }
