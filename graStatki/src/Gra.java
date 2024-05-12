@@ -61,7 +61,7 @@ public class Gra {
     public boolean czyTrafnyStrzal(Gracz gracz, int x, int y) {
 //        System.out.println("czytraf");
         if (x >= 0 && x < 10 && y >= 0 && y < 10) {
-            System.out.println("if");
+//            System.out.println("if");
             if (gracz.planszaPrzeciwnika.plansza[x][y] >= 0) {
                 //trafione cos
 //                System.out.println("trafcos");
@@ -100,6 +100,7 @@ public class Gra {
                 }
 //                System.out.println("czy czyzbity jest false: "+ gracz.statki.wszystkie[rodzaj].rodzaj[ktory].czyZbity);
                 if (gracz.statki.wszystkie[rodzaj].rodzaj[ktory].czyZbity) {
+                    System.out.println("TRAFIONY ZATOPIONY");
                     //zbilismy caly statek
 //                    System.out.println("czyzbity: "+gracz.statki.ilosc_aktywnych);
                     gracz.statki.ilosc_aktywnych--;
@@ -108,6 +109,8 @@ public class Gra {
                         czyKoniec = true;
                         return false;
                     }
+                } else {
+                    System.out.println("TRAFIONY NIEZATOPIONY");
                 }
                 return true; //????
             } else {
