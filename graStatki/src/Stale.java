@@ -1,11 +1,23 @@
 public class Stale {
-    public static final int ilosc_rodzajow=3;
-    public static final int ilosc_statkow=5;
+    public static final int ilosc_rodzajow=2;//4
+    public static final int ilosc_statkow=3;//10
     //tablica??
-    public static final int[][] rodzaje={
-            {1,2},
-            {2,3},
-            {3,5}
-            //pierwsza kolumna nr rodzaju, druga dlugosc
+//    public static final int[][] dane ={
+//            {1,1,4},
+//            {2,2,3},
+//            {3,3,2},
+//            {4,4,1}
+//            //pierwsza kolumna nr rodzaju, druga dlugosc, ilosc
+//    };
+    public static final int[][] dane ={
+            {1,1,2},
+            {2,2,1}
+            //pierwsza kolumna nr rodzaju, druga dlugosc, ilosc
     };
+//    static public Pair <Integer, String> [] nazwy;
+    public static String [] nazwy = {
+        "jednomasztowiec", "dwumasztowiec", "trójmasztowiec", "czteromasztowiec"
+    };
+
+
 }
