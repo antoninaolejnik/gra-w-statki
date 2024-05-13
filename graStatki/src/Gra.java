@@ -29,18 +29,21 @@ public class Gra {
         Scanner scanner = new Scanner(System.in);
         x = scanner.nextInt();
         y = scanner.nextInt();
-        if (x >= 0 && x < 10 && y >= 0 && y < 10) {
-            gracz.planszaWypisywana.plansza[x][y] = 1;
-        }
+//        if (x >= 0 && x < 10 && y >= 0 && y < 10) {
+//            gracz.planszaWypisywana.plansza[x][y] = 1;
+//        }
         while (czyTrafnyStrzal(gracz, x, y)) {
+//            System.out.println("plansza przeciwnika");
+//            gracz.planszaPrzeciwnika.wypiszPlansze();
+            System.out.println("plansza wypisywana");
+            gracz.planszaWypisywana.wypiszPlansze();
 
-            if (x >= 0 && x < 10 && y >= 0 && y < 10) {
-                gracz.planszaWypisywana.plansza[x][y] = 1;
-            }
+//            if (x >= 0 && x < 10 && y >= 0 && y < 10) {
+//                gracz.planszaWypisywana.plansza[x][y] = 1;
+//            }
             x = scanner.nextInt();
             y = scanner.nextInt();
         }
-
     }
     //jak wyjdzie to nie trafilismy w statek lub skonczyla sie gra
 
@@ -59,9 +62,10 @@ public class Gra {
 
 
     public boolean czyTrafnyStrzal(Gracz gracz, int x, int y) {
-//        System.out.println("czytraf");
-        if (x >= 0 && x < 10 && y >= 0 && y < 10) {
+        System.out.println("czytraf"+gracz.planszaWypisywana.plansza[x][y]);
+        if ((x >= 0 && x < 10 && y >= 0 && y < 10) && gracz.planszaWypisywana.plansza[x][y] != 1 ) {
 //            System.out.println("if");
+            gracz.planszaWypisywana.plansza[x][y] = 1;
             if (gracz.planszaPrzeciwnika.plansza[x][y] >= 0) {
                 //trafione cos
 //                System.out.println("trafcos");
@@ -73,19 +77,19 @@ public class Gra {
 //                System.out.println("iff1: "+gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[1]);
 
                 for (int i = 0; i < gracz.statki.wszystkie[rodzaj].dlugosc; i++) {
-//                    System.out.println("iffa: "+gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i]);
+                    System.out.println("iffa: "+gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i]);
 
-//                    System.out.println("iffC: "+10 * y + x);
+                    System.out.println("iffC: "+10 * y + x);
 //                    if (gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i] == 10 * y + x) {
                     if (gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i] == 10 * y + x) {
-//                        System.out.println("iffB: "+gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i]);
+                        System.out.println("iffB: "+gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i]);
                         gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i] = -3;
                         gracz.statki.wszystkie[rodzaj].rodzaj[ktory].czyZbity = true;
 //                        boolean pom = true;
                         for (int j = 0; j < gracz.statki.wszystkie[rodzaj].dlugosc; j++) {
                             //System.out.println("iff: "+gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[j]);
                             if (gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[j] != -3) {
-//                                System.out.println("zmiana czyzbity na false: "+ gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[j]);
+                                System.out.println("zmiana czyzbity na false: "+ gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[j]);
                                 gracz.statki.wszystkie[rodzaj].rodzaj[ktory].czyZbity = false;
 //                                pom=false;
                                 break; //??
@@ -111,12 +115,15 @@ public class Gra {
                     }
                 } else {
                     System.out.println("TRAFIONY NIEZATOPIONY");
+
                 }
                 return true; //????
             } else {
+                System.out.println("NIETRAFIONY");
                 return false; //nie trafilysmy w statek
             }
         } else {
+            System.out.println("nieprawidlowe pole, sprobuj jeszcze raz");
             return true;
         }
     }

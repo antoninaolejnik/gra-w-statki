@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Statek {
         private int dlugosc;
-        private int ilosc;
+//        private int ilosc;
 //        private int [][] pola;
         public int [] pola;
         public int indeks;

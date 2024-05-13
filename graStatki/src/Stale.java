@@ -1,6 +1,6 @@
 public class Stale {
     public static final int ilosc_rodzajow=2;//4
-    public static final int ilosc_statkow=3;//10
+    public static final int ilosc_statkow=2;//10
     //tablica??
 //    public static final int[][] dane ={
 //            {1,1,4},
@@ -9,9 +9,14 @@ public class Stale {
 //            {4,4,1}
 //            //pierwsza kolumna nr rodzaju, druga dlugosc, ilosc
 //    };
+//    public static final int[][] dane ={
+//            {1,1,2},
+//            {2,2,1}
+//            //pierwsza kolumna nr rodzaju, druga dlugosc, ilosc
+//    };
     public static final int[][] dane ={
-            {1,1,2},
-            {2,2,1}
+            {1,2,1},
+            {2,4,1}
             //pierwsza kolumna nr rodzaju, druga dlugosc, ilosc
     };
 

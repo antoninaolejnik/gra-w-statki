@@ -27,6 +27,7 @@ public class Plansza {
                 if(plansza[j][i] == -2 )System.out.print(" " + " | ");
                 else if(plansza[j][i] == -1 )System.out.print(" " + " | ");
                 else System.out.print(plansza[j][i] + " | "); //!!!
+//                else System.out.print(1 + " | "); //!!!
             }
             System.out.println("\n- - - - - - - - - - - - - - - - - - - - - ");
         }
