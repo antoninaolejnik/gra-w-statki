@@ -74,7 +74,7 @@ public class Statek {
                     pola[i]=10*(y+i)+x;
 //                    System.out.println("pionpola["+i+"]: " + pola[i]);
                 } else {
-                    pola[i]=10*x+y+i;
+                    pola[i]=10*y+x+i;
 //                    System.out.println("pozipola["+i+"]: " + pola[i]);
                 }
             }

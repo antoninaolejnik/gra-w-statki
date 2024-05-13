@@ -62,14 +62,14 @@ public class Gra {
 
 
     public boolean czyTrafnyStrzal(Gracz gracz, int x, int y) {
-        System.out.println("czytraf"+gracz.planszaWypisywana.plansza[x][y]);
+//        System.out.println("czytraf"+gracz.planszaWypisywana.plansza[x][y]);
         if ((x >= 0 && x < 10 && y >= 0 && y < 10) && gracz.planszaWypisywana.plansza[x][y] != 1 ) {
 //            System.out.println("if");
             gracz.planszaWypisywana.plansza[x][y] = 1;
             if (gracz.planszaPrzeciwnika.plansza[x][y] >= 0) {
                 //trafione cos
 //                System.out.println("trafcos");
-                gracz.planszaWypisywana.plansza[x][y] = 2;
+                gracz.planszaWypisywana.plansza[x][y] = 2; //????
                 int ktory = gracz.planszaPrzeciwnika.plansza[x][y] % 10;
                 int rodzaj = (gracz.planszaPrzeciwnika.plansza[x][y] - ktory) / 10;
                 //System.out.println("to dlugie cos: " +gracz.statki.wszystkie[rodzaj].dlugosc);
@@ -77,19 +77,19 @@ public class Gra {
 //                System.out.println("iff1: "+gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[1]);
 
                 for (int i = 0; i < gracz.statki.wszystkie[rodzaj].dlugosc; i++) {
-                    System.out.println("iffa: "+gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i]);
-
-                    System.out.println("iffC: "+10 * y + x);
+//                    System.out.println("iffa: "+gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i]);
+//
+//                    System.out.println("iffC: "+10 * y + x);
 //                    if (gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i] == 10 * y + x) {
                     if (gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i] == 10 * y + x) {
-                        System.out.println("iffB: "+gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i]);
+//                        System.out.println("iffB: "+gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i]);
                         gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i] = -3;
                         gracz.statki.wszystkie[rodzaj].rodzaj[ktory].czyZbity = true;
 //                        boolean pom = true;
                         for (int j = 0; j < gracz.statki.wszystkie[rodzaj].dlugosc; j++) {
                             //System.out.println("iff: "+gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[j]);
                             if (gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[j] != -3) {
-                                System.out.println("zmiana czyzbity na false: "+ gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[j]);
+//                                System.out.println("zmiana czyzbity na false: "+ gracz.statki.wszystkie[rodzaj].rodzaj[ktory].pola[j]);
                                 gracz.statki.wszystkie[rodzaj].rodzaj[ktory].czyZbity = false;
 //                                pom=false;
                                 break; //??
