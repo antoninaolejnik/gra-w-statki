@@ -12,7 +12,7 @@ public class Plansza {
 
     public void ustawNaPlanszy(int x, int y, int wartość) {
         if (x >= 0 && x < 10 && y >= 0 && y < 10) {
-            plansza[x][y] = wartość; //!!!
+            plansza[x][y] = wartość;
         } else {
             System.out.println("wspolrzedne poza zakresem");
         }
@@ -26,8 +26,8 @@ public class Plansza {
             for (int j = 0; j < 10; j++) {
                 if(plansza[j][i] == -2 )System.out.print(" " + " | ");
                 else if(plansza[j][i] == -1 )System.out.print(" " + " | ");
-                else System.out.print(plansza[j][i] + " | "); //!!!
-//                else System.out.print(1 + " | "); //!!!
+//                else System.out.print(plansza[j][i] + " | ");
+                else System.out.print(1 + " | ");
             }
             System.out.println("\n- - - - - - - - - - - - - - - - - - - - - ");
         }

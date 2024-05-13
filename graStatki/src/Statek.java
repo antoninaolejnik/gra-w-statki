@@ -2,32 +2,13 @@ import java.util.Scanner;
 
 public class Statek {
         private int dlugosc;
-//        private int ilosc;
-//        private int [][] pola;
         public int [] pola;
         public int indeks;
         boolean czyZbity = false;
-        //wspolrzedne poczatku
         static int x;
         static int y;
         boolean czyPionowo;
 
-//        public Statek (int x, int y, int ilosc, int dlugosc, boolean czyPionowo)
-//        {
-//            this.x=x;
-//            this.y=y;
-//            this.dlugosc = dlugosc;
-//            this.ilosc = ilosc;
-//            this.czyPionowo=czyPionowo;
-//            this.pola = new int [ilosc][dlugosc];
-//            for(int i =0; i<ilosc;i++)
-//            {
-//                for(int j=0; j<dlugosc;j++)
-//                {
-//                    this.pola[i][j]=0;
-//                }
-//            }
-//        }
     public Statek (int x, int y, int dlugosc, boolean czyPionowo)
     {
         this.x=x;
@@ -63,28 +44,16 @@ public class Statek {
         {
             for(int i=0; i<dlugosc; i++)
             {
-
-//                pola[i]=10*y+x;
-//                pola[i]=10*y+x+i;
-//                pola[i]=10*x+y+i; //xd
-//                System.out.println("pola["+i+"]: " + pola[i]);
-//
                 if(czyPionowo)
                 {
                     pola[i]=10*(y+i)+x;
-//                    System.out.println("pionpola["+i+"]: " + pola[i]);
                 } else {
                     pola[i]=10*y+x+i;
-//                    System.out.println("pozipola["+i+"]: " + pola[i]);
                 }
             }
 
         }
         public void wstawStatek(Plansza plansza){
-            //czy ja to mam tutaj robic? bo moze juz w tych dziedziczacych
-          //  Plansza plansza = new Plansza();
-            //System.out.println("A");
-            //sprawdz statek przyda sb do wpisywaniu przy grze
             if(!sprawdzStatek(plansza))
                 return;
 
@@ -116,10 +85,8 @@ public class Statek {
 
 
     public static void main(String[] args) {
+        System.out.println("TEST klasy Statek");
         Plansza plansza = new Plansza();
-       // plansza.wypiszPlansze();
-//        Statek statek = new Statek(3,2,1,2, true);
-
         Statek statek = new Statek(0,0,4, false);
         while(!statek.sprawdzStatek(plansza)){
             System.out.println("Podaj nowe wspolrzedne");
