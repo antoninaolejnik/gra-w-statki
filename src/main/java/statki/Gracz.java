@@ -66,6 +66,7 @@ public class Gracz {
     Plansza planszaWypisywana;
     Statki_wszytskie statki;
     boolean czyKoniec;
+    public String imie;
 
     //    public Gracz(Plansza planszaPrzeciwnika) {
 //        this.planszaPrzeciwnika = planszaPrzeciwnika;

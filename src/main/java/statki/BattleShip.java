@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
@@ -20,6 +21,8 @@ import javafx.scene.layout.VBox;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+
+import java.util.Optional;
 
 
 public class BattleShip extends Application {
@@ -39,13 +42,27 @@ public class BattleShip extends Application {
     @Override
     public void start(Stage primaryStage) {
         gracz1 = new Gracz();
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Podaj imię gracz1");
+        dialog.setHeaderText("Wprowadź swoje imię:");
+        dialog.setContentText("Imię:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        result.ifPresent(name -> gracz1.imie = name);
         gracz2 = new Gracz();
+        TextInputDialog dialog2 = new TextInputDialog();
+        dialog2.setTitle("Podaj imię gracz2");
+        dialog2.setHeaderText("Wprowadź swoje imię:");
+        dialog2.setContentText("Imię:");
+
+        Optional<String> result2 = dialog2.showAndWait();
+
+        result2.ifPresent(name -> gracz1.imie = name);
         this.primaryStage = primaryStage;
-        //System.out.println(gracz1.statki.wszystkie[0].rodzaj[0].indeks);
         wyswietlPlansze(gracz1);
 
-//        gracz1.planszaPrzeciwnika.wypiszPlansze();
-//        gracz2.planszaPrzeciwnika.wypiszPlansze();
+
 
     }
 
@@ -63,27 +80,27 @@ public class BattleShip extends Application {
             }
         }
 
-//        gridPane.add(orientationButton, 11, 0, 2, 1);
-        Button orientationButton = new Button("Zmień orientację");
-        orientationButton.setStyle("-fx-background-color: #C0C0C0;"
+//        gridPane.add(przyciskOrientacja, 11, 0, 2, 1);
+        Button przyciskOrientacja = new Button("Zmień orientację");
+        przyciskOrientacja.setStyle("-fx-background-color: #C0C0C0;"
                 + "-fx-background-radius: 15;"
                 + "-fx-text-fill: black;"
                 + "-fx-font-size: 14px;"
                 + "-fx-padding: 10 20 10 20;");
 
-        orientationButton.setOnMouseEntered(e -> orientationButton.setStyle("-fx-background-color: #A9A9A9;"
+        przyciskOrientacja.setOnMouseEntered(e -> przyciskOrientacja.setStyle("-fx-background-color: #A9A9A9;"
                 + "-fx-background-radius: 15;"
                 + "-fx-text-fill: black;"
                 + "-fx-font-size: 14px;"
                 + "-fx-padding: 10 20 10 20;"));
 
-        orientationButton.setOnMouseExited(e -> orientationButton.setStyle("-fx-background-color: #C0C0C0;"
+        przyciskOrientacja.setOnMouseExited(e -> przyciskOrientacja.setStyle("-fx-background-color: #C0C0C0;"
                 + "-fx-background-radius: 15;"
                 + "-fx-text-fill: black;"
                 + "-fx-font-size: 14px;"
                 + "-fx-padding: 10 20 10 20;"));
 
-        orientationButton.setOnAction(event -> {
+        przyciskOrientacja.setOnAction(event -> {
             czyPionowo = !czyPionowo;
             if (czyPionowo) {
                 wyswietlKomunikat("Statki będą ustawiane pionowo");
@@ -91,7 +108,7 @@ public class BattleShip extends Application {
                 wyswietlKomunikat("Statki będą ustawiane poziomo");
             }
         });
-        gridPane.add(orientationButton, 11, 0, 2, 1);
+        gridPane.add(przyciskOrientacja, 11, 0, 2, 1);
 
         komunikatText = new Text();
         komunikatText.setStyle("-fx-font-size: 16px;");
@@ -125,7 +142,6 @@ public class BattleShip extends Application {
                 if(pom == 5 || pom ==8) t=2;
                 if(pom ==9 ) t=3;
                 //pom++;
-//                Statek aktualnystatek = gracz1.statki.wszystkie[dlugoscStatku-1].rodzaj[t];
                 Statek aktualnystatek = gracz.statki.wszystkie[dlugoscStatku-1].rodzaj[t];
                 aktualnystatek.x=x;
                 aktualnystatek.y=y;
@@ -258,13 +274,12 @@ public class BattleShip extends Application {
                 button1.setMinSize(40, 40);
                 int finalI = i;
                 int finalJ = j;
-                button1.setOnAction(event -> handleShootButtonClick(finalI, finalJ, button1, gracz1, gracz2));
+                button1.setOnAction(event -> strzelaniePrzycisk(finalI, finalJ, button1, gracz1, gracz2));
                 gridPane1.add(button1, i, j);
 
                 Button button2 = new Button();
                 button2.setMinSize(40, 40);
-                button2.setOnAction(event -> handleShootButtonClick(finalI, finalJ, button2, gracz2, gracz1));
-//                button2.setOnAction(event -> handleShootButtonClick(finalI, finalJ, button2, gracz1, gracz2));
+                button2.setOnAction(event -> strzelaniePrzycisk(finalI, finalJ, button2, gracz2, gracz1));
                 gridPane2.add(button2, i, j);
             }
         }
@@ -277,30 +292,12 @@ public class BattleShip extends Application {
     }
 
 
-    private void wyłączPrzyciski(GridPane gridPane) {
-        for (Node node : gridPane.getChildren()) {
-            if (node instanceof Button) {
-                Button button = (Button) node;
-                button.setDisable(true);
-            }
-        }
-    }
-
-    private void włączPrzyciski(GridPane gridPane) {
-        for (Node node : gridPane.getChildren()) {
-            if (node instanceof Button) {
-                Button button = (Button) node;
-                button.setDisable(false);
-            }
-        }
-    }
-
 
     Gracz aktualnyGracz = new Gracz();
     Gracz drugi = new Gracz();
 
 
-    private void handleShootButtonClick(int x, int y, Button button, Gracz strzelajacy, Gracz przeciwnik) {
+    private void strzelaniePrzycisk(int x, int y, Button button, Gracz strzelajacy, Gracz przeciwnik) {
         if(!isCzyKoniec) {
             if(aktualnyGracz == przeciwnik) {
 
@@ -308,28 +305,27 @@ public class BattleShip extends Application {
                     button.setStyle("-fx-background-color: red;");
                     int ktory = przeciwnik.planszaPrzeciwnika.plansza[x][y] % 10;
                     int rodzaj = (przeciwnik.planszaPrzeciwnika.plansza[x][y] - ktory) / 10;
-                    System.out.println("ktory" + ktory + "rodzaj" + rodzaj);
+                   // System.out.println("ktory" + ktory + "rodzaj" + rodzaj);
 
 
                     rodzaj--;
 
-                    System.out.println("C " + x + " " + y);
 
                     for (int i = 0; i < przeciwnik.statki.wszystkie[rodzaj].dlugosc; i++) {
 
-                        System.out.println("D " + przeciwnik.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i]);
 
-                        System.out.println("H " + strzelajacy.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i]);
+
+
                         if (przeciwnik.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i] == 10 * y + x) {
 
-                            System.out.println("W");
+
                             przeciwnik.statki.wszystkie[rodzaj].rodzaj[ktory].pola[i] = -5;//?????
                             przeciwnik.statki.wszystkie[rodzaj].rodzaj[ktory].czyZbity = true;
-                            System.out.println("A");
+
                             for (int j = 0; j < przeciwnik.statki.wszystkie[rodzaj].dlugosc; j++) {
-                                System.out.println("B");
+
                                 if (przeciwnik.statki.wszystkie[rodzaj].rodzaj[ktory].pola[j] != -5) {
-                                    System.out.println("U");
+
                                     przeciwnik.statki.wszystkie[rodzaj].rodzaj[ktory].czyZbity = false;
                                     break;
                                 }
@@ -338,30 +334,56 @@ public class BattleShip extends Application {
                     }
 
                     if (przeciwnik.statki.wszystkie[rodzaj].rodzaj[ktory].czyZbity) {
-                        System.out.println("Statek zatopiony!");
-                        wyswietlCustomAlert("Trafiony zatopiony", 3);
+                        System.out.println("statek zatopiony!");
+                        wyswietlCustomAlert("trafiony zatopiony", 3);
 
                         przeciwnik.statki.ilosc_aktywnych--;
                         System.out.println("-----------------");
                         if (przeciwnik.statki.ilosc_aktywnych == 0) {
                             isCzyKoniec = true;
-                            System.out.println("kkkkkkkkkk");//???
+                            System.out.println("koniec");//???
+                            wyswietlCustomAlert("koniec gry, wygral : "+aktualnyGracz.imie,5);
+                            /*ImageView imageView = new ImageView(new Image("morze.gif"));
+
+                            imageView.setX(0);
+                            imageView.setY(0);
+                            imageView.setFitWidth(700);
+                            imageView.setFitHeight(400);
+
+
+                            StackPane root = new StackPane();
+                            root.getChildren().add(imageView);
+
+                            Scene scene = new Scene(root, 400, 400);
+                            primaryStage.setScene(scene);
+                            primaryStage.setTitle("Gra zakończona");
+                            primaryStage.show();
+
+
+                            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
+                                if (isCzyKoniec) {
+                                    root.getChildren().clear();
+                                    root.getChildren().add(imageView);
+                                }
+                            }));
+                            timeline.setCycleCount(Timeline.INDEFINITE);
+                            timeline.play();*/
 
                         }
                     } else {
-                        wyswietlCustomAlert("Trafiony niezatopiony", 3);
 
-                        System.out.println("Statek niezatopiony");
+
+                        System.out.println("statek niezatopiony");
                     }
 
 
 
                 } else{
-                   // wyswietlCustomAlert("pudlo", 5);
+
 
                     System.out.println("pudło");
                     aktualnyGracz = strzelajacy;
-                    //drugi = przeciwnik;
+
                     button.setStyle("-fx-background-color: darkblue;");
                 }
                 button.setDisable(true);
@@ -376,25 +398,25 @@ public class BattleShip extends Application {
     }
 
 
-    private void zamrozPlansze(GridPane gridPane, boolean zamroz) {
-        int size = 10; // Rozmiar planszy 10x10
-        for (Node node : gridPane.getChildren()) {
-            Integer columnIndex = GridPane.getColumnIndex(node);
-            Integer rowIndex = GridPane.getRowIndex(node);
-            if (columnIndex != null && rowIndex != null) {
-                int x = columnIndex;
-                int y = rowIndex;
-                node.setDisable(zamroz);
-            }
-        }
-    }
-    public void traf(Gracz gracz, int x, int y, Button button) {
-        if (gracz.czyTrafnyStrzal(x, y)) {
-            button.setStyle("-fx-background-color: red;");
-        } else {
-            button.setStyle("-fx-background-color: white;");
-        }
-    }
+//    private void zamrozPlansze(GridPane gridPane, boolean zamroz) {
+//        int size = 10;
+//        for (Node node : gridPane.getChildren()) {
+//            Integer columnIndex = GridPane.getColumnIndex(node);
+//            Integer rowIndex = GridPane.getRowIndex(node);
+//            if (columnIndex != null && rowIndex != null) {
+//                int x = columnIndex;
+//                int y = rowIndex;
+//                node.setDisable(zamroz);
+//            }
+//        }
+//    }
+//    public void traf(Gracz gracz, int x, int y, Button button) {
+//        if (gracz.czyTrafnyStrzal(x, y)) {
+//            button.setStyle("-fx-background-color: red;");
+//        } else {
+//            button.setStyle("-fx-background-color: white;");
+//        }
+//    }
     private void wyswietlCustomAlert(String komunikat, int sekundy) {
         Stage alertStage = new Stage();
         alertStage.initStyle(StageStyle.TRANSPARENT);
