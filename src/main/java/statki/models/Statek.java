@@ -1,4 +1,4 @@
-package statki;
+package statki.models;
 
 import java.util.Scanner;
 
@@ -6,13 +6,13 @@ public class Statek {
         private int dlugosc;
 //        private int ilosc;
 //        private int [][] pola;
-        public int [] pola;
-        public int indeks;
-        boolean czyZbity = false;
+        private int [] pola;
+        private int indeks;
+        private boolean czyZbity = false;
         //wspolrzedne poczatku
-        static int x;
-        static int y;
-        boolean czyPionowo;
+        private static int x;
+        private static int y;
+        private boolean czyPionowo;
 
 //        public Statek (int x, int y, int ilosc, int dlugosc, boolean czyPionowo)
 //        {
@@ -57,19 +57,36 @@ public class Statek {
                 for(int i=0;i<dlugosc;i++){
                     if(y+i>=10 ||y+i<0)
                         return false;
-                    if(plansza.plansza[x][y+i] != -2) return false;
+                    if(plansza.wezPunkt(x,y+i) != -2) return false;
 
                 }
             }else{
                 for(int i=0;i<dlugosc;i++){
                     if(x+i>=10 || x+i<0)
                         return false;
-                    if(plansza.plansza[x+i][y] != -2) return false;
+                    if(plansza.wezPunkt(x+i,y) != -2) return false;
                 }
             }
             return true;
         }
-
+        public int wezPole(int x){
+        return pola[x];
+        }
+        public void ustawX(int a){
+        x=a;
+        }
+        public void ustawY(int b){
+        y=b;
+        }
+        public void ustawOrient(boolean cos){
+        czyPionowo=cos;
+        }
+        public void ustawPole(int x,int wart){
+        pola[x]=wart;
+        }
+        public void ustawIndeks(int wart){
+        indeks=wart;
+        }
         public void wpiszPola(Plansza plansza)
         {
             for(int i=0; i<dlugosc; i++)
@@ -90,6 +107,12 @@ public class Statek {
                 }
             }
 
+        }
+        public void ustawZbity(boolean wart){
+        czyZbity=wart;
+        }
+        public boolean czyJestZbity(){
+        return czyZbity;
         }
         public void wstawStatek(Plansza plansza){
             //czy ja to mam tutaj robic? bo moze juz w tych dziedziczacych

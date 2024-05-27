@@ -13,4 +13,8 @@ module statki {
 
     opens statki to javafx.fxml;
     exports statki;
+    exports statki.view;
+    opens statki.view to javafx.fxml;
+    exports statki.models;
+    opens statki.models to javafx.fxml;
 }

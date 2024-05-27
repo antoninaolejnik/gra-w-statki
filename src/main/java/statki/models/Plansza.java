@@ -1,7 +1,7 @@
-package statki;
+package statki.models;
 
 public class Plansza {
-    public int[][] plansza;
+    private int[][] plansza;
     public Plansza()
     {
         plansza = new int[10][10];
@@ -35,6 +35,13 @@ public class Plansza {
         }
         System.out.println("\n\n");
     }
+    public int wezPunkt(int x, int y){
+        return plansza[x][y];
+    }
+    public void ustaw(int x, int y, int wart){
+        plansza[x][y]=wart;
+    }
+
 
     public static void main(String[] args) {
         Plansza plansza = new Plansza();
