@@ -10,7 +10,11 @@ public class Statki_rodzaj {
     {
         this.dlugosc = dlugosc;
         this.ilosc= ilosc;
+
         this.rodzaj = new Statek[ilosc];
+        for (int i = 0; i < ilosc; i++) {
+            this.rodzaj[i] = new Statek(dlugosc);
+        }
     }
 
 }

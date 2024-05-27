@@ -30,6 +30,15 @@ public class Statek {
 //                }
 //            }
 //        }
+    public Statek(int i){
+        this.dlugosc=i;
+        this.pola = new int [dlugosc];
+        for(int j=0; j<dlugosc;j++)
+        {
+            this.pola[j]=0;
+        }
+
+    }
     public Statek (int x, int y, int dlugosc, boolean czyPionowo)
     {
         this.x=x;
