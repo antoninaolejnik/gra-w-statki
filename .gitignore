@@ -36,3 +36,37 @@ build/
 
 ### Mac OS ###
 .DS_Store
+.AppleDouble
+.LSOverride
+
+### Windows ###
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+### IntelliJ IDEA ###
+.idea/
+out/
+
+### Gradle ###
+.gradle/
+
+### CI/CD ###
+.circleci/
+.gitlab-ci.yml
+.travis.yml
+
+### Java ###
+*.class
+*.jar
+*.war
+*.ear
+
+### Log files ###
+*.log
+
+### Temporary files ###
+*.tmp
+*.temp
+
