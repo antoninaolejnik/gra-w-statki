@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import statki.Stale;
 import statki.models.Gracz;
 import statki.models.Plansza;
 import statki.models.Statek;
@@ -121,12 +122,59 @@ public class BattleShip extends Application {
         primaryStage.setTitle("Gra w Statki");
         primaryStage.show();
     }
+    private void ustawianieNaPlanszy(Gracz gracz,Gracz gracz1, int x,int y){
+        if (gracz.wezPlanszeWypisywana().wezPunkt(x,y) == Stale.puste) {
+            if (pom == 10) {
 
+                pierwszyGraczUstawilStatki = true;
+                pom=0;
+                wyswietlPlansze(gracz2);
+                czyPionowo=false;
+                return;
+            }
+            dlugoscStatku = dlugosciStatkow[pom];
+//                pom++;
+
+            //Statek aktualnystatek = new Statek(x, y, dlugoscStatku, czyPionowo);
+            int t=0;
+            if(pom == 0 || pom ==1 || pom == 3 || pom ==6) t=0;
+            if(pom == 2 || pom ==4|| pom ==7) t=1;
+            if(pom == 5 || pom ==8) t=2;
+            if(pom ==9 ) t=3;
+            //pom++;
+            Statek aktualnystatek = gracz.wezStatki().wszystkie[dlugoscStatku-1].wezRodzaj(t);
+            aktualnystatek.ustawX(x);
+            aktualnystatek.ustawY(y);
+            aktualnystatek.ustawOrient(czyPionowo);
+
+            aktualnystatek.ustawIndeks(10*dlugoscStatku+t);
+
+
+            if (aktualnystatek.sprawdzStatek(gracz1.wezPlanszePrzeciwnika())) {
+                pom++;
+                aktualnystatek.wstawStatek(gracz1.wezPlanszePrzeciwnika());
+                aktualnystatek.wpiszPola(gracz1.wezPlanszePrzeciwnika());
+                for(int i=0;i<dlugoscStatku;i++){
+                    System.out.println(aktualnystatek.wezPole(i));
+                }
+                aktualizujPlansze(gracz1.wezPlanszePrzeciwnika());
+            } else {
+                wyswietlCustomAlert("Nie można umieścić statku w tym miejscu", 5);
+
+                wyswietlAlert("Nie można umieścić statku w tym miejscu", komunikatText.getText());
+            }
+        } else {
+            wyswietlCustomAlert("To pole nie jest wolne", 5);
+
+            wyswietlAlert("To pole nie jest wolne", komunikatText.getText());
+        }
+    }
     private void handleButtonClick(int x, int y, Button button, Gracz gracz) {
 
         if (!pierwszyGraczUstawilStatki) {
+            //ustawianieNaPlanszy(gracz,gracz1,x,y);
 
-            if (gracz.wezPlanszeWypisywana().wezPunkt(x,y) == -2) {
+            if (gracz.wezPlanszeWypisywana().wezPunkt(x,y) == Stale.puste) {
                 if (pom == 10) {
 
                     pierwszyGraczUstawilStatki = true;
@@ -172,8 +220,8 @@ public class BattleShip extends Application {
                 wyswietlAlert("To pole nie jest wolne", komunikatText.getText());
             }
         } else {
-
-            if (gracz2.wezPlanszePrzeciwnika().wezPunkt(x,y) == -2) {
+                //ustawianieNaPlanszy(gracz2,gracz2,x,y);
+            if (gracz2.wezPlanszePrzeciwnika().wezPunkt(x,y) == Stale.puste) {
                 if(pom==10){
                     rozpocznijGre();
                     return;}
@@ -218,9 +266,9 @@ public class BattleShip extends Application {
             for (int j = 0; j < 10; j++) {
                 Button button = (Button) gridPane.getChildren().get(i * 10 + j);
                 int wartosc = plansza.wezPunkt(i,j);
-                if (wartosc == -2) {
+                if (wartosc == Stale.puste) {
                     button.setStyle("-fx-background-color: #ffffff;");
-                } else if (wartosc == -1) {
+                } else if (wartosc == Stale.obok) {
                     button.setStyle("-fx-background-color: rgba(5,26,112,0.37);");
                 } else {
                     button.setStyle("-fx-background-color: #0415ea;");
@@ -261,7 +309,7 @@ public class BattleShip extends Application {
         aktualnyGracz = gracz2;
         drugi = gracz1;
 
-//        new Gra (gracz1,gracz2);
+
 
 
 
@@ -322,12 +370,12 @@ public class BattleShip extends Application {
                         if (przeciwnik.wezStatki().wszystkie[rodzaj].wezRodzaj(ktory).wezPole(i) == 10 * y + x) {
 
 
-                            przeciwnik.wezStatki().wszystkie[rodzaj].wezRodzaj(ktory).ustawPole(i,-5);//?????
+                            przeciwnik.wezStatki().wszystkie[rodzaj].wezRodzaj(ktory).ustawPole(i,Stale.puste2);//?????
                             przeciwnik.wezStatki().wszystkie[rodzaj].wezRodzaj(ktory).ustawZbity(true);
 
                             for (int j = 0; j < przeciwnik.wezStatki().wszystkie[rodzaj].wezDlugosc(); j++) {
 
-                                if (przeciwnik.wezStatki().wszystkie[rodzaj].wezRodzaj(ktory).wezPole(j) != -5) {
+                                if (przeciwnik.wezStatki().wszystkie[rodzaj].wezRodzaj(ktory).wezPole(j) != Stale.puste2) {
 
                                     przeciwnik.wezStatki().wszystkie[rodzaj].wezRodzaj(ktory).ustawZbity(false);
                                     break;

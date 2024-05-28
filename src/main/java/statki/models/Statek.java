@@ -1,5 +1,7 @@
 package statki.models;
 
+import statki.Stale;
+
 import java.util.Scanner;
 
 public class Statek {
@@ -35,7 +37,7 @@ public class Statek {
         this.pola = new int [dlugosc];
         for(int j=0; j<dlugosc;j++)
         {
-            this.pola[j]=0;
+            this.pola[j]= Stale.puste;
         }
 
     }
@@ -57,14 +59,14 @@ public class Statek {
                 for(int i=0;i<dlugosc;i++){
                     if(y+i>=10 ||y+i<0)
                         return false;
-                    if(plansza.wezPunkt(x,y+i) != -2) return false;
+                    if(plansza.wezPunkt(x,y+i) != Stale.puste) return false;
 
                 }
             }else{
                 for(int i=0;i<dlugosc;i++){
                     if(x+i>=10 || x+i<0)
                         return false;
-                    if(plansza.wezPunkt(x+i,y) != -2) return false;
+                    if(plansza.wezPunkt(x+i,y) != Stale.puste) return false;
                 }
             }
             return true;
@@ -126,24 +128,24 @@ public class Statek {
                 //poziomo
                 for (int i = 0; i < dlugosc; i++) {
                     plansza.ustawNaPlanszy(x + i, y, indeks);
-                    if(y>0)  plansza.ustawNaPlanszy(x + i, y - 1, -1);
-                    if(y<9)  plansza.ustawNaPlanszy(x + i, y + 1, -1);
+                    if(y>0)  plansza.ustawNaPlanszy(x + i, y - 1, Stale.obok);
+                    if(y<9)  plansza.ustawNaPlanszy(x + i, y + 1, Stale.obok);
                 }
                 for(int i=0;i<3;i++)
                 {
-                    if(x-1>=0 && x-1<10 && y-1+i>=0 && y-1+i<10) plansza.ustawNaPlanszy(x -1, y-1+i, -1);
-                    if(x+dlugosc>=0 && x+dlugosc<10 && y-1+i>=0 && y-1+i<10) plansza.ustawNaPlanszy(x +dlugosc, y-1+i, -1);
+                    if(x-1>=0 && x-1<10 && y-1+i>=0 && y-1+i<10) plansza.ustawNaPlanszy(x -1, y-1+i, Stale.obok);
+                    if(x+dlugosc>=0 && x+dlugosc<10 && y-1+i>=0 && y-1+i<10) plansza.ustawNaPlanszy(x +dlugosc, y-1+i, Stale.obok);
                 }
             } else {
                 for(int i=0; i<dlugosc;i++) {
                     plansza.ustawNaPlanszy(x, y + i, indeks);
-                    if(x>0)  plansza.ustawNaPlanszy(x -1, y +i, -1);
-                    if(x<9)  plansza.ustawNaPlanszy(x +1, y +i, -1);
+                    if(x>0)  plansza.ustawNaPlanszy(x -1, y +i, Stale.obok);
+                    if(x<9)  plansza.ustawNaPlanszy(x +1, y +i, Stale.obok);
                 }
                 for(int i=0;i<3;i++)
                 {
-                    if(x-1+i>=0 && x-1+i<10 && y-1>=0 && y-1<10) plansza.ustawNaPlanszy(x -1+i, y-1, -1);
-                    if(x+i-1>=0 && x+i-1<10 && y+dlugosc>=0 && y+dlugosc<10) plansza.ustawNaPlanszy(x +i-1, y+dlugosc, -1);
+                    if(x-1+i>=0 && x-1+i<10 && y-1>=0 && y-1<10) plansza.ustawNaPlanszy(x -1+i, y-1, Stale.obok);
+                    if(x+i-1>=0 && x+i-1<10 && y+dlugosc>=0 && y+dlugosc<10) plansza.ustawNaPlanszy(x +i-1, y+dlugosc, Stale.obok);
                 }
             }
         }

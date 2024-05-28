@@ -1,5 +1,7 @@
 package statki.models;
 
+import statki.Stale;
+
 public class Plansza {
     private int[][] plansza;
     public Plansza()
@@ -7,7 +9,7 @@ public class Plansza {
         plansza = new int[10][10];
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                plansza[i][j] = -2;
+                plansza[i][j] = Stale.puste;
             }
         }
     }
@@ -26,8 +28,8 @@ public class Plansza {
         for (int i = 0; i < 10; i++) {
             System.out.print("| ");
             for (int j = 0; j < 10; j++) {
-                if(plansza[j][i] == -2 )System.out.print(" " + " | ");
-                else if(plansza[j][i] == -1 )System.out.print(" " + " | ");
+                if(plansza[j][i] == Stale.puste )System.out.print(" " + " | ");
+                else if(plansza[j][i] == Stale.obok )System.out.print(" " + " | ");
                 else System.out.print(plansza[j][i] + " | "); //!!!
 //                else System.out.print(1 + " | "); //!!!
             }

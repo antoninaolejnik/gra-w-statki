@@ -3,6 +3,10 @@ package statki;
 public class Stale {
     public static final int ilosc_rodzajow=4;//4
     public static final int ilosc_statkow=10;//10
+    public static final int puste=-2;
+    public static final int obok=-1;
+    public static final int puste2=-5;
+
     //tablica??
     public static final int[][] dane ={
             {1,1,4},
