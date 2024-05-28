@@ -62,7 +62,7 @@ public class BattleShip extends Application {
 
         Optional<String> result2 = dialog2.showAndWait();
 
-        result2.ifPresent(name -> gracz1.ustawImie(name));
+        result2.ifPresent(name -> gracz2.ustawImie(name));
         this.primaryStage = primaryStage;
         wyswietlPlansze(gracz1);
 
