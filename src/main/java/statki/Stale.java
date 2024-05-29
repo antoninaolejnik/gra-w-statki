@@ -1,11 +1,17 @@
 package statki;
 
+import statki.models.Gracz;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Stale {
     public static final int ilosc_rodzajow=4;//4
     public static final int ilosc_statkow=10;//10
     public static final int puste=-2;
     public static final int obok=-1;
-    public static final int puste2=-5;
+    public static final int puste2=-3;
+    public static Map<String, Gracz> gracze= new HashMap<>();
 
     //tablica??
     public static final int[][] dane ={

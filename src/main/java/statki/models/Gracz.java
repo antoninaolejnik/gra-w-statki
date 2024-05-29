@@ -7,6 +7,8 @@ public class Gracz {
     private StatkiWszytskie statki;
     private boolean czyKoniec;
     private String imie;
+    private int punkty;
+    private boolean czyZKolei=false;
 
     //    public Gracz(Plansza planszaPrzeciwnika) {
 //        this.planszaPrzeciwnika = planszaPrzeciwnika;
@@ -18,9 +20,19 @@ public class Gracz {
         this.planszaPrzeciwnika = new Plansza();
         this.planszaWypisywana = new Plansza();
         this.statki = new StatkiWszytskie();
+        punkty=0;
        // System.out.println("konstrukcja");
         //ustawStatki(); // Tutaj wywołujemy metodę ustawiającą statki
     }
+
+    public Gracz(String s) {
+        this.planszaPrzeciwnika = new Plansza();
+        this.planszaWypisywana = new Plansza();
+        this.statki = new StatkiWszytskie();
+        punkty=0;
+        this.imie=s;
+    }
+
     public boolean czyTrafnyStrzal( int x, int y) {
         if ((x >= 0 && x < 10 && y >= 0 && y < 10) && this.planszaWypisywana.wezPunkt(x,y) != 1 &&this.planszaWypisywana.wezPunkt(x,y) != 2 ) {
             this.planszaWypisywana.ustawNaPlanszy(x,y,1);
@@ -79,4 +91,17 @@ public class Gracz {
     public String wezImie(){
         return imie;
     }
+    public void dodajPunkt(){
+        if(czyZKolei)
+            punkty+=10;
+        else
+            punkty++;
+    }
+    public int zwrocIlePunktow(){
+        return punkty;
+    }
+    public void czyStreak(boolean wart){
+        czyZKolei=wart;
+    }
+
 }

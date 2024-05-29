@@ -3,11 +3,11 @@ package statki.view;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
@@ -25,6 +25,7 @@ import statki.models.Gracz;
 import statki.models.Plansza;
 import statki.models.Statek;
 
+import java.util.HashMap;
 import java.util.Optional;
 
 
@@ -41,36 +42,67 @@ public class BattleShip extends Application {
     private Text komunikatText;
     private boolean czyPionowo = false;
 
+
     public boolean czyKoniec = false;
     @Override
     public void start(Stage primaryStage) {
-        gracz1 = new Gracz();
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Podaj imię gracz1");
-        dialog.setHeaderText("Wprowadź swoje imię:");
-        dialog.setContentText("Imię:");
+        //gracz1 = new Gracz();
+        //GraczeSingleton graczeSingleton = GraczeSingleton.getInstance();
+        String imie1=zapytajImie();
+        gracz1=wezLubUtworz(imie1);
+        //System.out.println(gracz1.wezImie());
 
-        Optional<String> result = dialog.showAndWait();
-
-        result.ifPresent(name -> gracz1.ustawImie(name));
-        System.out.println(gracz1.wezImie());
-        gracz2 = new Gracz();
-        TextInputDialog dialog2 = new TextInputDialog();
-        dialog2.setTitle("Podaj imię gracz2");
-        dialog2.setHeaderText("Wprowadź swoje imię:");
-        dialog2.setContentText("Imię:");
-
-        Optional<String> result2 = dialog2.showAndWait();
-
-        result2.ifPresent(name -> gracz2.ustawImie(name));
+        String imie2=zapytajImie();
+        gracz2=wezLubUtworz(imie2);
         this.primaryStage = primaryStage;
         wyswietlPlansze(gracz1);
 
 
 
     }
+    private Gracz wezLubUtworz(String imie){
+        return Stale.gracze.computeIfAbsent(imie,Gracz::new);
+    }
+
+    private String zapytajImie() {
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("Podaj imię gracz1");
+        dialog.setHeaderText("Wprowadź swoje imię:");
+
+        ButtonType zatwierdzButtonType = new ButtonType("Zatwierdź", ButtonType.OK.getButtonData());
+        dialog.getDialogPane().getButtonTypes().add(zatwierdzButtonType);
+
+        TextField imieTextField = new TextField();
+        imieTextField.setPromptText("Imię");
+
+        dialog.getDialogPane().setStyle("-fx-background-color: #E0E0E0;"); // Set background color to light gray
+        dialog.initStyle(StageStyle.UNDECORATED); // Remove window decoration (title bar, etc.)
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        Label label = new Label("Imię:");
+        grid.add(label, 0, 0);
+        grid.add(imieTextField, 1, 0);
+
+        dialog.getDialogPane().setContent(grid);
+
+        Platform.runLater(() -> imieTextField.requestFocus());
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == zatwierdzButtonType) {
+                return imieTextField.getText();
+            }
+            return null;
+        });
+
+        Optional<String> result = dialog.showAndWait();
 
 
+        return result.orElse(null);
+    }
     private void wyswietlPlansze(Gracz gracz) {
         GridPane gridPane = new GridPane();
         for (int i = 0; i < 10; i++) {
@@ -354,6 +386,9 @@ public class BattleShip extends Application {
 
                 if (przeciwnik.wezPlanszePrzeciwnika().wezPunkt(x,y) >= 0) { ///>>
                     button.setStyle("-fx-background-color: red;");
+                    strzelajacy.dodajPunkt();
+                    strzelajacy.czyStreak(true);
+                    wyswietlCustomAlert(strzelajacy.wezImie()+" ma :"+strzelajacy.zwrocIlePunktow(),5);
                     int ktory = przeciwnik.wezPlanszePrzeciwnika().wezPunkt(x,y) % 10;
                     int rodzaj = (przeciwnik.wezPlanszePrzeciwnika().wezPunkt(x,y) - ktory) / 10;
                    // System.out.println("ktory" + ktory + "rodzaj" + rodzaj);
@@ -381,6 +416,8 @@ public class BattleShip extends Application {
                                     break;
                                 }
                             }
+
+
                         }
                     }
 
@@ -393,7 +430,7 @@ public class BattleShip extends Application {
                         if (przeciwnik.wezStatki().ilosc_aktywnych == 0) {
                             isCzyKoniec = true;
                             System.out.println("koniec");//???
-                            wyswietlCustomAlert("koniec gry, wygral : "+aktualnyGracz.wezImie(),5);
+                            wyswietlCustomAlert("koniec gry, wygral : "+drugi.wezImie(),5);
                             /*ImageView imageView = new ImageView(new Image("morze.gif"));
 
                             imageView.setX(0);
@@ -431,7 +468,7 @@ public class BattleShip extends Application {
 
                 } else{
 
-
+                    strzelajacy.czyStreak(false);
                     System.out.println("pudło");
                     aktualnyGracz = strzelajacy;
 
