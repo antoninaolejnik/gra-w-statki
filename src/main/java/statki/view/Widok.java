@@ -151,4 +151,5 @@ public class Widok extends Application {
         timeline.setCycleCount(1);
         timeline.playFromStart();
     }
+
 }

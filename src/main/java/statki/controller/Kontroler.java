@@ -160,7 +160,6 @@ public class Kontroler {
         aktualnyGracz = gracz2;
         drugi = gracz1;
     }
-
     private void wyswietlPlanszeDoStrzelania(Gracz gracz1, Gracz gracz2) {
         GridPane gridPane1 = new GridPane();
         GridPane gridPane2 = new GridPane();
@@ -187,6 +186,8 @@ public class Kontroler {
         view.scena.setTitle("Gra w Statki");
         view.scena.show();
     }
+
+
 
 
 
