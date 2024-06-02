@@ -1,6 +1,8 @@
 package statki.models;
 
 
+import statki.Stale;
+
 public class Gracz {
     private Plansza planszaPrzeciwnika;
     private Plansza planszaWypisywana;
@@ -8,6 +10,7 @@ public class Gracz {
     private boolean czyKoniec;
     private String imie;
     private int punkty;
+    private int mnoznik=1;
     private boolean czyZKolei=false;
 
     //    public Gracz(Plansza planszaPrzeciwnika) {
@@ -92,8 +95,9 @@ public class Gracz {
         return imie;
     }
     public void dodajPunkt(){
-        if(czyZKolei)
-            punkty+=10;
+        if(czyZKolei){
+            mnoznik*= Stale.mnoznik;
+            punkty+=mnoznik;}
         else
             punkty++;
     }
@@ -101,6 +105,9 @@ public class Gracz {
         return punkty;
     }
     public void czyStreak(boolean wart){
+        if(!wart){
+            mnoznik=1;
+        }
         czyZKolei=wart;
     }
 

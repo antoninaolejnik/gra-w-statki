@@ -11,6 +11,7 @@ public class Stale {
     public static final int puste=-2;
     public static final int obok=-1;
     public static final int puste2=-3;
+    public static final int mnoznik=2;
     public static Map<String, Gracz> gracze= new HashMap<>();
 
     //tablica??

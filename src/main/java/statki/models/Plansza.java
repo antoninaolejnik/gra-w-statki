@@ -37,6 +37,25 @@ public class Plansza {
         }
         System.out.println("\n\n");
     }
+    public boolean sprawdzCzyWolne(){
+        boolean odp=false;
+        for(int i=0;i<10;i++){
+            for(int j=0;j<10;j++){
+                if(plansza[i][j]==Stale.puste){
+                    odp= true;
+                }
+            }
+        }
+        return odp;
+    }
+    public void reset(){
+        for(int i=0;i<10;i++){
+            for(int j=0;j<10;j++){
+                plansza[i][j]=Stale.puste;
+
+            }
+        }
+    }
     public int wezPunkt(int x, int y){
         return plansza[x][y];
     }

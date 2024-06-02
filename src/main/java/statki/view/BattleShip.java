@@ -111,6 +111,7 @@ public class BattleShip extends Application {
                 button.setMinSize(40, 40);
                 int finalI = i;
                 int finalJ = j;
+
                 button.setOnAction(event -> handleButtonClick(finalI, finalJ, button, gracz));
                 gridPane.add(button, i, j);
             }
@@ -205,7 +206,17 @@ public class BattleShip extends Application {
 
         if (!pierwszyGraczUstawilStatki) {
             //ustawianieNaPlanszy(gracz,gracz1,x,y);
-
+            /*if(!gracz.wezPlanszeWypisywana().sprawdzCzyWolne()){
+                wyswietlCustomAlert("Nie ma miejsca na statek, resetuje...",5);
+                gracz.wezPlanszeWypisywana().reset();
+                pom=0;
+            }*/
+            if(!gracz.wezPlanszeWypisywana().sprawdzCzyWolne()){
+                System.out.println("aa");
+                wyswietlCustomAlert("Nie ma miejsca na statek, resetuje...",5);
+                gracz.wezPlanszeWypisywana().reset();
+                pom=0;
+            }
             if (gracz.wezPlanszeWypisywana().wezPunkt(x,y) == Stale.puste) {
                 if (pom == 10) {
 
@@ -253,6 +264,11 @@ public class BattleShip extends Application {
             }
         } else {
                 //ustawianieNaPlanszy(gracz2,gracz2,x,y);
+           /* if(!gracz.wezPlanszeWypisywana().sprawdzCzyWolne()){
+                wyswietlCustomAlert("Nie ma miejsca na statek, resetuje...",5);
+                gracz.wezPlanszeWypisywana().reset();
+                pom=0;
+            }*/
             if (gracz2.wezPlanszePrzeciwnika().wezPunkt(x,y) == Stale.puste) {
                 if(pom==10){
                     rozpocznijGre();
@@ -298,6 +314,7 @@ public class BattleShip extends Application {
             for (int j = 0; j < 10; j++) {
                 Button button = (Button) gridPane.getChildren().get(i * 10 + j);
                 int wartosc = plansza.wezPunkt(i,j);
+
                 if (wartosc == Stale.puste) {
                     button.setStyle("-fx-background-color: #ffffff;");
                 } else if (wartosc == Stale.obok) {
