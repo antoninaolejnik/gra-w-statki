@@ -2,45 +2,58 @@ package statki;
 
 import statki.models.Gracz;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 public class Stale {
-    public static final int ilosc_rodzajow=4;//4
-    public static final int ilosc_statkow=10;//10
-    public static final int puste=-2;
-    public static final int obok=-1;
-    public static final int puste2=-3;
-    public static final int mnoznik=2;
-    public static Map<String, Gracz> gracze= new HashMap<>();
+    public static int ilosc_rodzajow;
+    public static int ilosc_statkow;
+    public static int puste;
+    public static int obok;
+    public static int puste2;
+    public static int mnoznik;
+    public static Map<String, Gracz> gracze = new HashMap<>();
+    public static int[] dlugosciStatkow;
+    public static int[][] dane;
+    public static String[] nazwy;
 
-    //tablica??
-    public static final int[][] dane ={
-            {1,1,4},
-            {2,2,3},
-            {3,3,2},
-            {4,4,1}
-            //pierwsza kolumna nr rodzaju, druga dlugosc, ilosc
-    };
-//    public static final int[][] dane ={
-//            {1,1,2},
-//            {2,2,1}
-//            //pierwsza kolumna nr rodzaju, druga dlugosc, ilosc
-//    };
-//    public static final int[][] dane ={
-//            {1,2,1},
-//            {2,4,1}
-//            //pierwsza kolumna nr rodzaju, druga dlugosc, ilosc
-//    };
+    static {
+        Properties properties = new Properties();
+        try (InputStream input = Stale.class.getClassLoader().getResourceAsStream("config.properties")) {
+            if (input == null) {
+                throw new IOException("Plik config.properties nie został znaleziony");
+            }
+            properties.load(input);
+            ilosc_rodzajow = Integer.parseInt(properties.getProperty("ilosc_rodzajow"));
+            ilosc_statkow = Integer.parseInt(properties.getProperty("ilosc_statkow"));
+            puste = Integer.parseInt(properties.getProperty("puste"));
+            obok = Integer.parseInt(properties.getProperty("obok"));
+            puste2 = Integer.parseInt(properties.getProperty("puste2"));
+            mnoznik = Integer.parseInt(properties.getProperty("mnoznik"));
 
-//    public static final int[][] dane ={
-//            {1,1,1}
-//            //pierwsza kolumna nr rodzaju, druga dlugosc, ilosc
-//    };
-//    static public Pair <Integer, String> [] nazwy;
-    public static String [] nazwy = {
-        "jednomasztowiec", "dwumasztowiec", "trójmasztowiec", "czteromasztowiec"
-    };
+            String[] dlugosciStatkowStr = properties.getProperty("dlugosci_statkow").split(",");
+            dlugosciStatkow = new int[dlugosciStatkowStr.length];
+            for (int i = 0; i < dlugosciStatkowStr.length; i++) {
+                dlugosciStatkow[i] = Integer.parseInt(dlugosciStatkowStr[i]);
+            }
 
+            String[] daneStr = properties.getProperty("dane").split(";");
+            dane = new int[daneStr.length][3];
+            for (int i = 0; i < daneStr.length; i++) {
+                String[] values = daneStr[i].split(",");
+                for (int j = 0; j < values.length; j++) {
+                    dane[i][j] = Integer.parseInt(values[j]);
+                }
+            }
 
+            nazwy = properties.getProperty("nazwy").split(",");
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            // Możesz dodać bardziej wyrafinowane logowanie lub obsługę błędów tutaj
+        }
+    }
 }

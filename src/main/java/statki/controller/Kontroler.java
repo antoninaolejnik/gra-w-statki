@@ -14,7 +14,7 @@ public class Kontroler {
     private Gracz gracz1;
     private Gracz gracz2;
     private int dlugoscStatku;
-    private int[] dlugosciStatkow = {4, 3, 3, 2, 2, 2, 1, 1, 1, 1};
+    private int[] dlugosciStatkow =Stale.dlugosciStatkow;
     private int pom = 0;
     private boolean pierwszyGraczUstawilStatki = false;
     private boolean czyPionowo = false;
@@ -34,7 +34,10 @@ public class Kontroler {
 
         String imie2 = view.zapytajImie("Podaj imię gracz2");
         gracz2 = wezLubUtworz(imie2);
-
+        while(imie1.equals(imie2)){
+            imie2 = view.zapytajImie("Podaj imię gracz2 inne niz gracz1");
+            gracz2 = wezLubUtworz(imie2);
+        }
         view.wyswietlPlansze(gracz1);
     }
 
@@ -78,11 +81,7 @@ public class Kontroler {
 //                pom++;
 
                 //Statek aktualnystatek = new Statek(x, y, dlugoscStatku, czyPionowo);
-                int t=0;
-                if(pom == 0 || pom ==1 || pom == 3 || pom ==6) t=0;
-                if(pom == 2 || pom ==4|| pom ==7) t=1;
-                if(pom == 5 || pom ==8) t=2;
-                if(pom ==9 ) t=3;
+                int t=znajdzTypStatku(pom);
                 //pom++;
                 Statek aktualnystatek = gracz.wezStatki().wszystkie[dlugoscStatku-1].wezRodzaj(t);
                 aktualnystatek.ustawX(x);
@@ -123,11 +122,7 @@ public class Kontroler {
                     return;}
                 dlugoscStatku = dlugosciStatkow[pom];
                 //pom++;
-                int t=0;
-                if(pom == 0 || pom ==1 || pom == 3 || pom ==6) t=0;
-                if(pom == 2 || pom ==4|| pom ==7) t=1;
-                if(pom == 5 || pom ==8) t=2;
-                if(pom ==9 ) t=3;
+                int t=znajdzTypStatku(pom);
                 //pom++;
 //                Statek statek = gracz1.statki.wszystkie[dlugoscStatku-1].rodzaj[t];
                 Statek aktualnystatek = gracz2.wezStatki().wszystkie[dlugoscStatku-1].wezRodzaj(t);

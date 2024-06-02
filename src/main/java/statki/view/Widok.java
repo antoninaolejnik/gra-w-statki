@@ -37,11 +37,10 @@ public class Widok extends Application {
     public String zapytajImie(String title) {
         Dialog<String> dialog = new Dialog<>();
         dialog.setTitle(title);
-        dialog.setHeaderText("Wprowadź swoje imię:");
+        dialog.setHeaderText(title);
 
         ButtonType zatwierdzPrzycisk = new ButtonType("Zatwierdź", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().add(zatwierdzPrzycisk);
-
         TextField poleImie = new TextField();
         poleImie.setPromptText("Imię");
 
