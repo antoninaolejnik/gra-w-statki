@@ -4,7 +4,6 @@ import statki.models.Statek;
 
 public class StatkiRodzaj {
     private int dlugosc;
-//    String nazwa_rodzaju;
     private int ilosc;
     private Statek[] rodzaj;
 

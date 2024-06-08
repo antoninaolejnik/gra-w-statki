@@ -22,21 +22,7 @@ public class Plansza {
         }
     }
 
-    public void wypiszPlansze()
-    {
-        System.out.println("- - - - - - - - - - - - - - - - - - - - -");
-        for (int i = 0; i < 10; i++) {
-            System.out.print("| ");
-            for (int j = 0; j < 10; j++) {
-                if(plansza[j][i] == Stale.puste )System.out.print(" " + " | ");
-                else if(plansza[j][i] == Stale.obok )System.out.print(" " + " | ");
-                else System.out.print(plansza[j][i] + " | "); //!!!
-//                else System.out.print(1 + " | "); //!!!
-            }
-            System.out.println("\n- - - - - - - - - - - - - - - - - - - - - ");
-        }
-        System.out.println("\n\n");
-    }
+
     public boolean sprawdzCzyWolne(){
         boolean odp=false;
         for(int i=0;i<10;i++){
@@ -66,6 +52,6 @@ public class Plansza {
 
     public static void main(String[] args) {
         Plansza plansza = new Plansza();
-        plansza.wypiszPlansze();
+
     }
 }
