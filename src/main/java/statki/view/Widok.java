@@ -170,7 +170,6 @@ public class Widok extends Application {
                 gridPane.add(przycisk, i, j);
             }
         }
-
 //        Button przyciskOrientacja = new Button(Stale.orientMozliwosc);
         Button przyciskOrientacja = new Button("poziomo/pionowo");
         przyciskOrientacja.setStyle(Stale.przyciskOrient);
