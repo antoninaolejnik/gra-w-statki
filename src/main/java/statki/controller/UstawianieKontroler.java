@@ -3,6 +3,7 @@ package statki.controller;
 import javafx.scene.control.Button;
 import statki.Stale;
 import statki.models.Gracz;
+import statki.models.IGracz;
 import statki.models.Statek;
 import statki.view.Komunikator;
 import statki.view.Widok;
@@ -12,19 +13,21 @@ public class UstawianieKontroler {
     private Widok view;
     private boolean pierwszyGraczUstawilStatki;
     private int[] dlugosciStatkow;
-    private int pom;
+    int pom;
     private boolean czyPionowo;
     private int dlugoscStatku;
+    private boolean czyZKomputerem;
 
-    public UstawianieKontroler(Widok view, int[] dlugosciStatkow) {
+    public UstawianieKontroler(Widok view, int[] dlugosciStatkow, boolean czyZKomputerem) {
         this.view = view;
+        this.czyZKomputerem=czyZKomputerem;
         this.dlugosciStatkow = dlugosciStatkow;
         this.pom = 0;
         this.czyPionowo = false;
         this.pierwszyGraczUstawilStatki = false;
     }
 
-    private boolean czyPlanszaJestPelna(Gracz gracz) {
+    private boolean czyPlanszaJestPelna(IGracz gracz) {
         if (!gracz.wezPlanszeWypisywana().sprawdzCzyWolne()) {
             komunikator.wyswietlCustomAlert(Stale.reset, 5);
             gracz.wezPlanszeWypisywana().reset();
@@ -34,7 +37,7 @@ public class UstawianieKontroler {
         return false;
     }
 
-    private boolean ustawStatekNaPlanszy(int x, int y, Gracz gracz, int pom) {
+    private boolean ustawStatekNaPlanszy(int x, int y, IGracz gracz, int pom) {
         if (gracz.wezPlanszeWypisywana().wezPunkt(x, y) == Stale.puste) {
             if (pom == 10) {
                 pierwszyGraczUstawilStatki = true;
@@ -67,7 +70,7 @@ public class UstawianieKontroler {
         return false;
     }
 
-    public void kliknieciePrzycisku(int x, int y, Button button, Gracz gracz, Gracz gracz2) {
+    public void kliknieciePrzycisku(int x, int y, Button button, IGracz gracz, IGracz gracz2) {
         if (!pierwszyGraczUstawilStatki) {
             if (czyPlanszaJestPelna(gracz)) {
                 return;
@@ -85,6 +88,7 @@ public class UstawianieKontroler {
                     return;
                 }
             } else {
+
                 komunikator.wyswietlCustomAlert(Stale.zleMiejsce, 5);
             }
         }
@@ -97,9 +101,9 @@ public class UstawianieKontroler {
         else return index - 6;
     }
 
-    private void rozpocznijGre(Gracz gracz1, Gracz gracz2) {
+    public void rozpocznijGre(IGracz gracz1, IGracz gracz2) {
         KontrolerGra mainController = new KontrolerGra(view);
-        mainController.rozpocznijGre(gracz1, gracz2);
+        mainController.rozpocznijGre(gracz1, gracz2, czyZKomputerem);
     }
 
 

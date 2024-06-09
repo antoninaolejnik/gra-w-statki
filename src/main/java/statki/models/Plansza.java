@@ -18,7 +18,7 @@ public class Plansza {
         if (x >= 0 && x < 10 && y >= 0 && y < 10) {
             plansza[x][y] = wartość; //!!!
         } else {
-            System.out.println("wspolrzedne poza zakresem");
+            System.out.println(Stale.zleMiejsce);
         }
     }
 

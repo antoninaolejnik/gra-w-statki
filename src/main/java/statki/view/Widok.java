@@ -1,30 +1,64 @@
 package statki.view;
 import javafx.application.Application;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import statki.controller.Kontroler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+
 import statki.Stale;
-import statki.models.Gracz;
+
+import statki.models.IGracz;
 import statki.models.Plansza;
+
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class Widok extends Application {
 
     private Kontroler kontroler;
     public Stage scena;
     private Text komunikatTekst;
-    private int indeks=0;
+    private int indeks = 0;
+    private boolean czyZKomputerem = false;
 
     @Override
     public void start(Stage primaryStage) {
         this.scena = primaryStage;
-        this.kontroler = new Kontroler(this);
+        wyswietlMenuStartowe();
+    }
+
+    public void wyswietlMenuStartowe() {
+        VBox vbox = new VBox(10);
+        vbox.setStyle(Stale.kolor5);
+
+        Button graZPrzyjacielem = new Button(Stale.grajZPrzyjacielem);
+        graZPrzyjacielem.setMinSize(200, 50);
+        graZPrzyjacielem.setOnAction(event -> rozpocznijGre(false));
+
+        Button graZKomputerem = new Button(Stale.grajZKomputerem);
+        graZKomputerem.setMinSize(200, 50);
+        graZKomputerem.setOnAction(event -> rozpocznijGre(true));
+
+        vbox.getChildren().addAll(graZPrzyjacielem, graZKomputerem);
+
+        Scene scene = new Scene(vbox, 400, 200);
+        scena.setScene(scene);
+        scena.setTitle(Stale.tytul);
+        scena.show();
+    }
+
+    public void rozpocznijGre(boolean czyZKomputerem) {
+        this.czyZKomputerem = czyZKomputerem;
+        this.kontroler = new Kontroler(this, czyZKomputerem);
         kontroler.zacznijGre();
     }
+
     public void wyswietlPlanszeDoStrzelania(GridPane gridPane1, GridPane gridPane2) {
         HBox hBox = new HBox(10, gridPane1, gridPane2);
         Scene scene = new Scene(hBox, 800, 400);
@@ -33,7 +67,7 @@ public class Widok extends Application {
         scena.show();
     }
 
-    public GridPane tworzPlansze(Gracz strzelajacy, Gracz przeciwnik, EventHandler<ActionEvent> eventHandler) {
+    public GridPane tworzPlansze(IGracz strzelajacy, IGracz przeciwnik, EventHandler<ActionEvent> eventHandler) {
         GridPane gridPane = new GridPane();
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
@@ -71,8 +105,11 @@ public class Widok extends Application {
             wyswietlKomunikat(Stale.ustawianieDlugosc + Stale.dlugosciStatkow[indeks]);
         }
         indeks++;
+        if(indeks==10)
+            indeks=0;
     }
-    public void wyswietlPlansze(Gracz gracz) {
+
+    public void wyswietlPlansze(IGracz gracz) {
         GridPane gridPane = new GridPane();
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
@@ -107,6 +144,33 @@ public class Widok extends Application {
     public void wyswietlKomunikat(String komunikat) {
         komunikatTekst.setText(komunikat);
     }
+
+    public Button wezButton(int x, int y, IGracz przeciwnik) {
+        Parent root = scena.getScene().getRoot();
+        if (root instanceof GridPane) {
+            GridPane gridPane = (GridPane) root;
+            int index = y * 10 + x;
+            Node node = gridPane.getChildren().get(index);
+            if (node instanceof Button) {
+                return (Button) node;
+            }
+        } else if (root instanceof HBox) {
+            HBox hBox = (HBox) root;
+            for (Node node : hBox.getChildren()) {
+                if (node instanceof GridPane) {
+                    GridPane gridPane = (GridPane) node;
+                    int index = y * 10 + x;
+                    Node innerNode = gridPane.getChildren().get(index);
+                    if (innerNode instanceof Button) {
+                        return (Button) innerNode;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+
 
 
 }

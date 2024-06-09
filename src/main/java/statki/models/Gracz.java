@@ -3,11 +3,10 @@ package statki.models;
 
 import statki.Stale;
 
-public class Gracz {
+public class Gracz implements IGracz{
     private Plansza planszaPrzeciwnika;
     private Plansza planszaWypisywana;
     private StatkiWszytskie statki;
-    private boolean czyKoniec;
     private String imie;
     private int punkty;
     private int mnoznik=1;

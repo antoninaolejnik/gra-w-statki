@@ -10,6 +10,7 @@ import java.util.Properties;
 
 public class Stale {
     public static int iloscRodzajow;
+    public static int rozmiarPlanszy;
     public static int iloscStatkow;
     public static int puste;
     public static int obok;
@@ -51,6 +52,10 @@ public class Stale {
     public static String kolor4;
     public static String wszytskieUstawione;
     public static String ustawianieDlugosc;
+    public static String grajZPrzyjacielem;
+    public static String grajZKomputerem;
+    public static String komputer;
+    public static String kolor5;
 
 
 
@@ -62,6 +67,7 @@ public class Stale {
                 throw new IOException("Plik config.properties nie został znaleziony");
             }
             properties.load(input);
+            rozmiarPlanszy=Integer.parseInt(properties.getProperty("rozmiar_planszy"));
             iloscRodzajow = Integer.parseInt(properties.getProperty("ilosc_rodzajow"));
             iloscStatkow = Integer.parseInt(properties.getProperty("ilosc_statkow"));
             puste = Integer.parseInt(properties.getProperty("puste"));
@@ -88,7 +94,7 @@ public class Stale {
                 dlugosciStatkow[i] = Integer.parseInt(dlugosciStatkowStr[i]);
             }
             tytul=properties.getProperty("tytul");
-            wypiszPunkty=properties.getProperty("wypis_punkty");
+            wypiszPunkty=properties.getProperty("wypis_punkt");
             orientMozliwosc=properties.getProperty("orient_mozliwosc");
             przyciskOrient=properties.getProperty("przycisk_orient");
             przyciskTlo1=properties.getProperty("przycisk_tlo1");
@@ -113,6 +119,10 @@ public class Stale {
                     dane[i][j] = Integer.parseInt(values[j]);
                 }
             }
+            grajZKomputerem=properties.getProperty("graj_z_komp");
+            grajZPrzyjacielem=properties.getProperty("graj_z_przyj");
+            komputer=properties.getProperty("komputer");
+            kolor5=properties.getProperty("kolor5");
 
             nazwy = properties.getProperty("nazwy").split(",");
 
