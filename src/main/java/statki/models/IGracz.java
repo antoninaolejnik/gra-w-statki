@@ -19,5 +19,8 @@ public int wezLiczbaBomb();
     public void zuzyjBombe();
     Label getPunktyGracz();
     Label getBombyGracz();
+    public void kupSamolot();
+    public void zuzyjSamolot();
+    public int wezLiczbaSamolotow();
 
 }

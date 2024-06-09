@@ -92,6 +92,21 @@ public class Komputer implements IGracz {
         return null;
     }
 
+    @Override
+    public void kupSamolot() {
+
+    }
+
+    @Override
+    public void zuzyjSamolot() {
+
+    }
+
+    @Override
+    public int wezLiczbaSamolotow() {
+        return 0;
+    }
+
     public void generujrand(int x, int y){
         x = random.nextInt(Stale.rozmiarPlanszy);
         y = random.nextInt(Stale.rozmiarPlanszy);

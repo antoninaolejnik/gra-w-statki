@@ -69,10 +69,10 @@ public class Stale {
     public static String koniecGry1;
     public static String infoGra;
     public static String zamknij;
-    public static String ikonaBomby;
-    public static String ikonaStatku;
-    public static String ikonaFali;
-    public static String ikonaKomputera;
+    public static final String samolot = "Samoloty";
+    public static final String kupSamolot = "Kup Samolot";
+    public static final String strzelSamolot = "Strzel Samolotem";
+//    public static final int KOSZT_SAMOLOTU = 50; // przykładowa cena
 
 
 
@@ -97,7 +97,6 @@ public class Stale {
             pierwszyGracz= properties.getProperty("pierwszy_gracz");
             drugiGracz= properties.getProperty("drugi_gracz");
             ruchDrugiego=properties.getProperty("ruch_drugiego");
-            ikonaKomputera = properties.getProperty("ikona_komputera");
             kolorZestrzelony= properties.getProperty("kolor_zestrzrelony");
             trafionyZatopiony=properties.getProperty("trafiony_zatopiony");
             koniecGry=properties.getProperty("koniec_gry");
@@ -154,9 +153,6 @@ public class Stale {
             jakGracHeader = properties.getProperty("jak_grac_header");
             jakGracText = properties.getProperty("jak_grac_text");
             koniecGry1 = properties.getProperty("koniec_gry1");
-            ikonaBomby = properties.getProperty("ikona_bomby");
-            ikonaStatku = properties.getProperty("ikona_statku");
-            ikonaFali = properties.getProperty("ikona_fali");
 
             nazwy = properties.getProperty("nazwy").split(",");
 

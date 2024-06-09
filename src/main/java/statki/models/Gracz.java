@@ -18,6 +18,7 @@ public class Gracz implements IGracz{
     private int liczbaBomb = 0;
     public Label punktyGracz;
     public Label bombyGracz;
+    private int liczbaSamolotow = 0;
 
 
     public Gracz() {
@@ -96,4 +97,23 @@ public class Gracz implements IGracz{
         return null;
     }
 
+    public void kupSamolot() {
+        if (punkty >= 80) {
+            punkty -= 80;
+            liczbaSamolotow++;
+        } else {
+            throw new IllegalStateException("Za mało punktów na samolot!");
+        }
+    }
+    public void zuzyjSamolot() {
+        if (liczbaSamolotow > 0) {
+            liczbaSamolotow--;
+        } else {
+            throw new IllegalStateException("Brak samolotów!");
+        }
+    }
+
+    public int wezLiczbaSamolotow() {
+        return liczbaSamolotow;
+    }
 }
