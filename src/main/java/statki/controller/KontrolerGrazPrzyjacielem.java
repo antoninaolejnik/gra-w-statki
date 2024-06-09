@@ -70,7 +70,7 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
         bombyGracz1 = new Label(Stale.bomba +" "+ gracz1.wezLiczbaBomb());
         Button kupBombeGracz1 = new Button(Stale.kupBombe);
         kupBombeGracz1.setOnAction(event -> kupBombe(gracz1));
-        Button strzelBombaGracz1 = new Button(Stale.strzelBombe);
+        Button strzelBombaGracz1 = new Button(Stale.strzelBombe+" \uD83D\uDCA3");
         strzelBombaGracz1.setOnAction(event -> ustawStrzalBomba(gracz1));
 
         GridPane gridPane2 = view.tworzPlansze(gracz2, gracz1, event -> {
@@ -92,7 +92,7 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
         bombyGracz2 = new Label(Stale.bomba+" "+ gracz2.wezLiczbaBomb());
         Button kupBombeGracz2 = new Button(Stale.kupBombe);
         kupBombeGracz2.setOnAction(event -> kupBombe(gracz2));
-        Button strzelBombaGracz2 = new Button(Stale.strzelBombe);
+        Button strzelBombaGracz2 = new Button(Stale.strzelBombe+" \uD83D\uDCA3");
          strzelBombaGracz2.setOnAction(event -> ustawStrzalBomba(gracz2));
         VBox vboxGracz1 = new VBox(10, new Label(gracz1.wezImie()), punktyGracz1, bombyGracz1, kupBombeGracz1,strzelBombaGracz1, gridPane1);
         VBox vboxGracz2 = new VBox(10, new Label(gracz2.wezImie()), punktyGracz2, bombyGracz2, kupBombeGracz2,strzelBombaGracz2, gridPane2);
@@ -147,7 +147,7 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
                 }
 
                 if (przeciwnik.wezStatki().wszystkie[rodzaj].wezRodzaj(ktory).czyJestZbity()) {
-                    komunikator.wyswietlCustomAlert(Stale.trafionyZatopiony, Stale.sekundy);
+                    komunikator.wyswietlCustomAlert(Stale.trafionyZatopiony+" \uD83D\uDEA2", Stale.sekundy);
                     przeciwnik.wezStatki().ilosc_aktywnych--;
                     if (przeciwnik.wezStatki().ilosc_aktywnych == 0) {
                         isCzyKoniec = true;

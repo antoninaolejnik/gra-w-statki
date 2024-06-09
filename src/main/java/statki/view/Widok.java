@@ -47,11 +47,11 @@ public class Widok extends Application {
         VBox vbox = new VBox(10);
         vbox.setStyle(Stale.kolor5);
 
-        Button graZPrzyjacielem = new Button(Stale.grajZPrzyjacielem);
+        Button graZPrzyjacielem = new Button(Stale.grajZPrzyjacielem+" \uD83C\uDF0A");
         graZPrzyjacielem.setMinSize(200, 50);
         graZPrzyjacielem.setOnAction(event -> rozpocznijGre(false));
 
-        Button graZKomputerem = new Button(Stale.grajZKomputerem);
+        Button graZKomputerem = new Button(Stale.grajZKomputerem+" \uD83D\uDCBB");
         graZKomputerem.setMinSize(200, 50);
         graZKomputerem.setOnAction(event -> rozpocznijGre(true));
 
