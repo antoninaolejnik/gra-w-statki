@@ -66,11 +66,11 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
                 buttonsGracz1[x][y] = button;
             }
         }
-        punktyGracz1 = new Label("Punkty: " + gracz1.zwrocIlePunktow());
-        bombyGracz1 = new Label("Bomby: " + gracz1.wezLiczbaBomb());
-        Button kupBombeGracz1 = new Button("Kup bombę");
+        punktyGracz1 = new Label(Stale.punkty+" " + gracz1.zwrocIlePunktow());
+        bombyGracz1 = new Label(Stale.bomba +" "+ gracz1.wezLiczbaBomb());
+        Button kupBombeGracz1 = new Button(Stale.kupBombe);
         kupBombeGracz1.setOnAction(event -> kupBombe(gracz1));
-        Button strzelBombaGracz1 = new Button("Strzel bombą");
+        Button strzelBombaGracz1 = new Button(Stale.strzelBombe);
         strzelBombaGracz1.setOnAction(event -> ustawStrzalBomba(gracz1));
 
         GridPane gridPane2 = view.tworzPlansze(gracz2, gracz1, event -> {
@@ -88,19 +88,19 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
             }
         }
 
-        punktyGracz2 = new Label("Punkty: " + gracz2.zwrocIlePunktow());
-        bombyGracz2 = new Label("Bomby: " + gracz2.wezLiczbaBomb());
-        Button kupBombeGracz2 = new Button("Kup bombę");
+        punktyGracz2 = new Label(Stale.punkty+" "+ gracz2.zwrocIlePunktow());
+        bombyGracz2 = new Label(Stale.bomba+" "+ gracz2.wezLiczbaBomb());
+        Button kupBombeGracz2 = new Button(Stale.kupBombe);
         kupBombeGracz2.setOnAction(event -> kupBombe(gracz2));
-        Button strzelBombaGracz2 = new Button("Strzel bombą");
+        Button strzelBombaGracz2 = new Button(Stale.strzelBombe);
          strzelBombaGracz2.setOnAction(event -> ustawStrzalBomba(gracz2));
         VBox vboxGracz1 = new VBox(10, new Label(gracz1.wezImie()), punktyGracz1, bombyGracz1, kupBombeGracz1,strzelBombaGracz1, gridPane1);
         VBox vboxGracz2 = new VBox(10, new Label(gracz2.wezImie()), punktyGracz2, bombyGracz2, kupBombeGracz2,strzelBombaGracz2, gridPane2);
 
         HBox hBox = new HBox(10, vboxGracz1, vboxGracz2);
-        Scene scene = new Scene(hBox, 800, 600);
+        Scene scene = new Scene(hBox, 900, 600);
         view.scena.setScene(scene);
-        view.scena.setTitle("Gra w Statki");
+        view.scena.setTitle(Stale.tytul);
         view.scena.show();
     }
 
@@ -119,7 +119,7 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
                     }
                 }
             } else {
-                komunikator.wyswietlCustomAlert(Stale.ruchDrugiego, 5);
+                komunikator.wyswietlCustomAlert(Stale.ruchDrugiego, Stale.sekundy);
             }
         }
     }
@@ -129,7 +129,7 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
         button.setStyle(Stale.kolorZestrzelony);
         strzelajacy.dodajPunkt();
         strzelajacy.czyStreak(true);
-        komunikator.wyswietlCustomAlert(strzelajacy.wezImie() +" "+ Stale.wypiszPunkty +" "+ strzelajacy.zwrocIlePunktow(), 5);
+        komunikator.wyswietlCustomAlert(strzelajacy.wezImie() +" "+ Stale.wypiszPunkty +" "+ strzelajacy.zwrocIlePunktow(), Stale.sekundy);
         zaktualizujPunktyIBomby(); //???
         int ktory = przeciwnik.wezPlanszePrzeciwnika().wezPunkt(x, y) % 10;
         int rodzaj = (przeciwnik.wezPlanszePrzeciwnika().wezPunkt(x, y) - ktory) / 10 - 1;
@@ -147,12 +147,12 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
                 }
 
                 if (przeciwnik.wezStatki().wszystkie[rodzaj].wezRodzaj(ktory).czyJestZbity()) {
-                    komunikator.wyswietlCustomAlert(Stale.trafionyZatopiony, 3);
+                    komunikator.wyswietlCustomAlert(Stale.trafionyZatopiony, Stale.sekundy);
                     przeciwnik.wezStatki().ilosc_aktywnych--;
                     if (przeciwnik.wezStatki().ilosc_aktywnych == 0) {
                         isCzyKoniec = true;
 
-                        komunikator.wyswietlCustomAlert(Stale.koniecGry + drugi.wezImie(), 5);
+                        komunikator.wyswietlCustomAlert(Stale.koniecGry + drugi.wezImie(), Stale.sekundy);
                         view.endGame();
                     }
                 }
@@ -196,10 +196,10 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
     }
 
 public void zaktualizujPunktyIBomby() {
-    punktyGracz1.setText("Punkty: " + graczA.zwrocIlePunktow());
-    bombyGracz1.setText("Bomby: " + graczA.wezLiczbaBomb());
-    punktyGracz2.setText("Punkty: " + graczB.zwrocIlePunktow());
-    bombyGracz2.setText("Bomby: " + graczB.wezLiczbaBomb());
+    punktyGracz1.setText(Stale.punkty+" " + graczA.zwrocIlePunktow());
+    bombyGracz1.setText(Stale.bomba+" "+ graczA.wezLiczbaBomb());
+    punktyGracz2.setText(Stale.punkty+" " + graczB.zwrocIlePunktow());
+    bombyGracz2.setText(Stale.bomba+" " + graczB.wezLiczbaBomb());
 
 }
 
@@ -226,7 +226,7 @@ public void zaktualizujPunktyIBomby() {
         if(!isCzyKoniec) {
             if(aktualnyGracz == przeciwnik) {
                 if (przeciwnik.wezPlanszePrzeciwnika().wezPunkt(x,y) >= 0) {
-                    button.setStyle("-fx-background-color: red;");
+                    button.setStyle(Stale.kolorZestrzelony);
                     boolean pom = false;
                     boolean p=false;
                     int ktory = przeciwnik.wezPlanszePrzeciwnika().wezPunkt(x,y) % 10;
@@ -277,17 +277,14 @@ public void zaktualizujPunktyIBomby() {
                         }
                     }
                 } else{
-                    button.setStyle("-fx-background-color: darkblue;");
+                    button.setStyle(Stale.kolor6);
                 }
                 button.setDisable(true);
-                przeciwnik.wezPlanszeWypisywana().ustaw(x,y,1); //????
+                przeciwnik.wezPlanszeWypisywana().ustaw(x,y,Stale.obok); //????
 
             } else {
               //  view.wyswietlCustomAlert("Jest ruch innego gracza...",5);
             }
-        } else {
-            System.out.println("KONIECCCC");
-
         }
     }
 }

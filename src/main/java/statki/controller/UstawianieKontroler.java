@@ -2,7 +2,9 @@ package statki.controller;
 
 import javafx.scene.control.Button;
 import statki.Stale;
+import statki.models.Gracz;
 import statki.models.IGracz;
+import statki.models.Komputer;
 import statki.models.Statek;
 import statki.view.Komunikator;
 import statki.view.Widok;
@@ -28,7 +30,7 @@ public class UstawianieKontroler {
 
     private boolean czyPlanszaJestPelna(IGracz gracz) {
         if (!gracz.wezPlanszeWypisywana().sprawdzCzyWolne()) {
-            komunikator.wyswietlCustomAlert(Stale.reset, 5);
+            komunikator.wyswietlCustomAlert(Stale.reset, Stale.sekundy);
             gracz.wezPlanszeWypisywana().reset();
             pom = 0;
             return true;
@@ -38,7 +40,7 @@ public class UstawianieKontroler {
 
     private boolean ustawStatekNaPlanszy(int x, int y, IGracz gracz, int pom) {
         if (gracz.wezPlanszeWypisywana().wezPunkt(x, y) == Stale.puste) {
-            if (pom == 10) {
+            if (pom == Stale.iloscStatkow) {
                 pierwszyGraczUstawilStatki = true;
                 this.pom = 0;
                 view.wyswietlPlansze(gracz);
@@ -61,10 +63,12 @@ public class UstawianieKontroler {
                 view.aktualizujPlansze(gracz.wezPlanszePrzeciwnika());
                 return true;
             } else {
-                komunikator.wyswietlCustomAlert(Stale.zleMiejsce, 5);
+                if(gracz instanceof Gracz)
+                    komunikator.wyswietlCustomAlert(Stale.zleMiejsce, Stale.sekundy);
             }
         } else {
-            komunikator.wyswietlCustomAlert(Stale.zleMiejsce, 5);
+            if(gracz instanceof Gracz)
+                komunikator.wyswietlCustomAlert(Stale.zleMiejsce, Stale.sekundy);
         }
         return false;
     }
@@ -86,9 +90,10 @@ public class UstawianieKontroler {
                 if (ustawStatekNaPlanszy(x, y, gracz2, pom)) {
                     return;
                 }
-            } else {
-                komunikator.wyswietlCustomAlert(Stale.zleMiejsce, 5);
             }
+//            else {
+//                //komunikator.wyswietlCustomAlert(Stale.zleMiejsce, Stale.sekundy);
+//            }
         }
     }
 
@@ -113,6 +118,6 @@ public class UstawianieKontroler {
     public void zmienOrientacje() {
         czyPionowo = !czyPionowo;
         String orientacja = czyPionowo ? Stale.pion : Stale.poziom;
-        komunikator.wyswietlCustomAlert(Stale.zmianaOrient + orientacja, 3);
+        komunikator.wyswietlCustomAlert(Stale.zmianaOrient + orientacja, Stale.sekundy);
     }
 }

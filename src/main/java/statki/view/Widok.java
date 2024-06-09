@@ -1,15 +1,18 @@
 package statki.view;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import statki.controller.Kontroler;
 import javafx.event.ActionEvent;
@@ -52,13 +55,51 @@ public class Widok extends Application {
         graZKomputerem.setMinSize(200, 50);
         graZKomputerem.setOnAction(event -> rozpocznijGre(true));
 
-        vbox.getChildren().addAll(graZPrzyjacielem, graZKomputerem);
+        Button informacja = new Button(Stale.jakGracHeader);
+        informacja.setMinSize(200, 50);
+        informacja.setOnAction(event -> wyswietlInformacjeOkno());
 
-        Scene scene = new Scene(vbox, 400, 200);
+        vbox.getChildren().addAll(graZPrzyjacielem, graZKomputerem, informacja);
+
+        Scene scene = new Scene(vbox, 400, 250);
         scena.setScene(scene);
         scena.setTitle(Stale.tytul);
         scena.show();
     }
+
+    private void wyswietlInformacjeOkno() {
+        Stage infoStage = new Stage();
+        infoStage.setTitle(Stale.infoGra);
+
+        VBox vbox = new VBox(10);
+        vbox.setPadding(new Insets(10));
+        vbox.setStyle(Stale.kolor5);
+
+        Label header = new Label(Stale.jakGracHeader);
+        header.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+
+        TextArea infoText = new TextArea();
+        infoText.setText("Statki to gra wojenna, w której dwóch graczy próbuje zatopić statki przeciwnika.\n" +
+                "W naszym module gry można grać z drugą osobą lub z komputerem\n"+
+                "Każdy gracz ustawia swoje statki na planszy o rozmiarze 10x10.\n" +
+                "Statki mogą być ustawione poziomo lub pionowo i nie mogą się dotykać.\n" +
+                "Gracz ustawia statki wybierając miejsce początku statku.\n"+
+                "Po ustawieniu statków, gracze na przemian oddają strzały, próbując trafić statki przeciwnika.\n" +
+                "Gra kończy się, gdy wszystkie statki jednego z graczy zostaną zatopione.");
+        infoText.setWrapText(true);
+        infoText.setEditable(false);
+
+        Button zamknijButton = new Button(Stale.zamknij);
+        zamknijButton.setOnAction(event -> infoStage.close());
+
+        vbox.getChildren().addAll(header, infoText, zamknijButton);
+
+        Scene scene = new Scene(vbox, 400, 300);
+        infoStage.setScene(scene);
+        infoStage.initModality(Modality.APPLICATION_MODAL);
+        infoStage.showAndWait();
+    }
+
 
     public void rozpocznijGre(boolean czyZKomputerem) {
         this.czyZKomputerem = czyZKomputerem;
@@ -144,7 +185,7 @@ public class Widok extends Application {
         komunikatTekst.setStyle(Stale.fontSize);
         gridPane.add(komunikatTekst, 0, 11, 10, 1);
 
-        Scene scene = new Scene(gridPane, 550, 450);
+        Scene scene = new Scene(gridPane, 600, 450);
         scena.setScene(scene);
         scena.setTitle(Stale.tytul);
         scena.show();
@@ -172,7 +213,7 @@ public Button wezButton(int x, int y, IGracz przeciwnik) {
         StackPane endPane = new StackPane();
         endPane.setStyle("-fx-background-color: black;");
 
-        Label endLabel = new Label("KONIEC GRY");
+        Label endLabel = new Label(Stale.koniecGry1);
         endLabel.setFont(Font.font("Serif", FontWeight.BOLD, 50));
         endLabel.setTextFill(Color.WHITE);
         VBox vbox = new VBox();

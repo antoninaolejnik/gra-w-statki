@@ -17,8 +17,6 @@ public class Plansza {
     public void ustawNaPlanszy(int x, int y, int wartość) {
         if (x >= 0 && x < 10 && y >= 0 && y < 10) {
             plansza[x][y] = wartość; //!!!
-        } else {
-            System.out.println(Stale.zleMiejsce);
         }
     }
 
@@ -49,8 +47,5 @@ public class Plansza {
     }
 
 
-    public static void main(String[] args) {
-        Plansza plansza = new Plansza();
 
-    }
 }

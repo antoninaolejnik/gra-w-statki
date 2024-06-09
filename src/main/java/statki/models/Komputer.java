@@ -99,12 +99,6 @@ public class Komputer implements IGracz {
 
 
 
-    private int znajdzTypStatku(int dlugosc) {
-        if (dlugosc < 2) return dlugosc;
-        else if (dlugosc < 4) return dlugosc - 1;
-        else if (dlugosc < 7) return dlugosc - 3;
-        else return dlugosc - 6;
-    }
 
 
 }

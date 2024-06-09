@@ -9,8 +9,6 @@ import statki.view.Widok;
 
 import java.util.Random;
 
-
-
 public class KontrolerGraZKomputerem implements KontrolerGry{
     Komunikator komunikator = new Komunikator();
     private Widok view;
@@ -62,7 +60,7 @@ public class KontrolerGraZKomputerem implements KontrolerGry{
                     }
                 }
             } else {
-                komunikator.wyswietlCustomAlert(Stale.ruchDrugiego, 5);
+                //komunikator.wyswietlCustomAlert(Stale.ruchDrugiego, Stale.sekundy);
                 nietrafiony(button,strzelajacy,przeciwnik);
             }
         }
@@ -70,10 +68,10 @@ public class KontrolerGraZKomputerem implements KontrolerGry{
 
     private void komputerowyRuch(IGracz komputer, IGracz przeciwnik) {
         do {
-            x = random.nextInt(10);
-            y = random.nextInt(10);
-        } while (komputer.wezPlanszeWypisywana().wezPunkt(x, y) != -3);
-        komputer.wezPlanszeWypisywana().ustawNaPlanszy(x,y,1);
+            x = random.nextInt(Stale.rozmiarPlanszy);
+            y = random.nextInt(Stale.rozmiarPlanszy);
+        } while (komputer.wezPlanszeWypisywana().wezPunkt(x, y) != Stale.puste2);
+        komputer.wezPlanszeWypisywana().ustawNaPlanszy(x,y,Stale.obok);
         Button button = view.wezButton(y, x, przeciwnik);
         if (przeciwnik.wezPlanszePrzeciwnika().wezPunkt(x, y) >= 0) {
             strzelaniePrzycisk(x, y, button, komputer, przeciwnik, true);
@@ -102,11 +100,11 @@ public class KontrolerGraZKomputerem implements KontrolerGry{
                 }
 
                 if (przeciwnik.wezStatki().wszystkie[rodzaj].wezRodzaj(ktory).czyJestZbity()) {
-                    komunikator.wyswietlCustomAlert(Stale.trafionyZatopiony, 3);
+                    komunikator.wyswietlCustomAlert(Stale.trafionyZatopiony, Stale.sekundy);
                     przeciwnik.wezStatki().ilosc_aktywnych--;
                     if (przeciwnik.wezStatki().ilosc_aktywnych == 0) {
                         isCzyKoniec = true;
-                        komunikator.wyswietlCustomAlert(Stale.koniecGry + drugi.wezImie(), 5);
+                        komunikator.wyswietlCustomAlert(Stale.koniecGry + drugi.wezImie(), Stale.sekundy);
                         view.endGame();
                     }
                 }

@@ -3,6 +3,7 @@ import javafx.scene.control.Button;
 import statki.Stale;
 import statki.models.Gracz;
 import statki.models.IGracz;
+import statki.models.Komputer;
 import statki.view.Komunikator;
 import statki.view.Widok;
 
@@ -16,7 +17,7 @@ public class Kontroler {
     private Random random;
     private int[] dlugosciStatkow =Stale.dlugosciStatkow;
     private KontrolerGraZKomputerem gameController;
-    private KontrolerGrazPrzyjacielem gameController2;
+
     private boolean czyZKomputerem;
 
 
@@ -27,7 +28,6 @@ public class Kontroler {
         this.view = view;
         random=new Random();
         this.czyZKomputerem=czyZKomputerem;
-        //int[] dlugosciStatkow = {4, 3, 3, 2, 2, 2, 1, 1, 1, 1};
         this.ustawianieKontroler = new UstawianieKontroler(view, dlugosciStatkow,czyZKomputerem);
         this.gameController = new KontrolerGraZKomputerem(view);
     }
@@ -35,10 +35,16 @@ public class Kontroler {
     public void zacznijGre() {
         String imie1 = pobierzImie(Stale.podajImie+Stale.pierwszyGracz);
         gracz1 = wezLubUtworz(imie1);
-        if(czyZKomputerem)
+        if(czyZKomputerem){
+            gracz2=new Komputer();
             gracz2 = wezLubUtworz(Stale.komputer);
+        }
+
         else{
         String imie2 = pobierzImie(Stale.podajImie+Stale.drugiGracz);
+        while(imie2.equals(imie1)){
+            imie2 = pobierzImie("Podaj inne imie");
+        }
         gracz2 = wezLubUtworz(imie2);
         }
 
@@ -51,15 +57,14 @@ public class Kontroler {
     }
 
     public void kliknieciePrzycisku(int x, int y, Button button) {
-//        System.out.println("klik: "+x+" "+y);
         if (!ustawianieKontroler.pierwszyGraczUstawilStatki()) {
             ustawianieKontroler.kliknieciePrzycisku(x, y, button, gracz1, gracz2);
         } else {
             if(czyZKomputerem){
                 do {
-                    x = random.nextInt(10);
-                    y = random.nextInt(10);
-                    ustawianieKontroler.kliknieciePrzycisku(x, y, button, gracz1, gracz2); //XD
+                    x = random.nextInt(Stale.rozmiarPlanszy);
+                    y = random.nextInt(Stale.rozmiarPlanszy);
+                    ustawianieKontroler.kliknieciePrzycisku(x, y, button, gracz1, gracz2);
                 } while (ustawianieKontroler.pom!=Stale.iloscStatkow);
                 ustawianieKontroler.rozpocznijGre(gracz1,gracz2);//!!!
             }else

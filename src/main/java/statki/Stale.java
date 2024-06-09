@@ -13,6 +13,8 @@ public class Stale {
     public static int rozmiarPlanszy;
     public static int iloscStatkow;
     public static int puste;
+    public static int cenaBomby;
+    public static int sekundy;
     public static int obok;
     public static int puste2;
     public static int mnoznik;
@@ -35,6 +37,10 @@ public class Stale {
     public static String zmianaOrient;
 
     public static String tytul;
+    public static String bomba;
+    public static String punkty;
+    public static String strzelBombe;
+    public static String kupBombe;
     public static String wypiszPunkty;
     public static String orientMozliwosc;
     public static String przyciskOrient;
@@ -46,6 +52,7 @@ public class Stale {
     public static String kolorImie;
     public static String customAlert;
     public static String font;
+    public static String inneImie;
     public static String kolor1;
     public static String kolor2;
     public static String kolor3;
@@ -56,6 +63,12 @@ public class Stale {
     public static String grajZKomputerem;
     public static String komputer;
     public static String kolor5;
+    public static String kolor6;
+    public static String jakGracHeader;
+    public static String jakGracText;
+    public static String koniecGry1;
+    public static String infoGra;
+    public static String zamknij;
 
 
 
@@ -68,6 +81,8 @@ public class Stale {
             }
             properties.load(input);
             rozmiarPlanszy=Integer.parseInt(properties.getProperty("rozmiar_planszy"));
+            cenaBomby=Integer.parseInt(properties.getProperty("cena_bomby"));
+            sekundy=Integer.parseInt(properties.getProperty("sekundy"));
             iloscRodzajow = Integer.parseInt(properties.getProperty("ilosc_rodzajow"));
             iloscStatkow = Integer.parseInt(properties.getProperty("ilosc_statkow"));
             puste = Integer.parseInt(properties.getProperty("puste"));
@@ -86,6 +101,11 @@ public class Stale {
             zleMiejsce=properties.getProperty("nie_mozna_ustawic");
             pion=properties.getProperty("pion");
             poziom=properties.getProperty("poziom");
+            bomba=properties.getProperty("bomby");
+            kupBombe=properties.getProperty("kup_bombe");
+            strzelBombe=properties.getProperty("strzel_bomba");
+            inneImie=properties.getProperty("inne_imie");
+            punkty=properties.getProperty("punkty");
             zmianaOrient=properties.getProperty("poziomo/pionowo");
             kolorZestrzelony=properties.getProperty("kolor_zestrzelony");
             String[] dlugosciStatkowStr = properties.getProperty("dlugosci_statkow").split(",");
@@ -109,6 +129,8 @@ public class Stale {
             kolor2=properties.getProperty("kolor2");
             kolor3=properties.getProperty("kolor3");
             kolor4=properties.getProperty("kolor4");
+            infoGra=properties.getProperty("info_gra");
+            zamknij=properties.getProperty("zamknij");
             wszytskieUstawione=properties.getProperty("wszystkie_ustawione");
             ustawianieDlugosc=properties.getProperty("ustawianie_dlugosc");
             String[] daneStr = properties.getProperty("dane").split(";");
@@ -123,6 +145,10 @@ public class Stale {
             grajZPrzyjacielem=properties.getProperty("graj_z_przyj");
             komputer=properties.getProperty("komputer");
             kolor5=properties.getProperty("kolor5");
+            kolor6=properties.getProperty("kolor6");
+            jakGracHeader = properties.getProperty("jak_grac_header");
+            jakGracText = properties.getProperty("jak_grac_text");
+            koniecGry1 = properties.getProperty("koniec_gry1");
 
             nazwy = properties.getProperty("nazwy").split(",");
 

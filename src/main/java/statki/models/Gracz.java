@@ -25,7 +25,7 @@ public class Gracz implements IGracz{
         this.planszaWypisywana = new Plansza();
         this.statki = new StatkiWszytskie();
         punkty=0;
-        this.buttonsGracz = new Button[10][10];
+        this.buttonsGracz = new Button[Stale.rozmiarPlanszy][Stale.rozmiarPlanszy];
 
     }
 
@@ -75,11 +75,9 @@ public class Gracz implements IGracz{
         return liczbaBomb;
     }
     public void kupBombe() {
-        if (punkty >= 15) {
+        if (punkty >= Stale.cenaBomby) {
             liczbaBomb++;
-            punkty -= 15;
-        } else {
-            throw new IllegalStateException("Za mało punktów, aby kupić bombę!");
+            punkty -= Stale.cenaBomby;
         }
     }
     public void zuzyjBombe() {
