@@ -1,16 +1,23 @@
 package statki.models;
 
 
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import statki.Stale;
 
 public class Gracz implements IGracz{
     private Plansza planszaPrzeciwnika;
     private Plansza planszaWypisywana;
     private StatkiWszytskie statki;
-    private String imie;
+    public String imie;
     private int punkty;
     private int mnoznik=1;
     private boolean czyZKolei=false;
+   // public Button[][] buttonsgracz;
+   private Button[][] buttonsGracz;
+    private int liczbaBomb = 0;
+    public Label punktyGracz;
+    public Label bombyGracz;
 
 
     public Gracz() {
@@ -18,6 +25,7 @@ public class Gracz implements IGracz{
         this.planszaWypisywana = new Plansza();
         this.statki = new StatkiWszytskie();
         punkty=0;
+        this.buttonsGracz = new Button[10][10];
 
     }
 
@@ -27,6 +35,7 @@ public class Gracz implements IGracz{
         this.statki = new StatkiWszytskie();
         punkty=0;
         this.imie=s;
+
     }
 
 
@@ -60,6 +69,33 @@ public class Gracz implements IGracz{
             mnoznik=1;
         }
         czyZKolei=wart;
+    }
+
+    public int wezLiczbaBomb() {
+        return liczbaBomb;
+    }
+    public void kupBombe() {
+        if (punkty >= 15) {
+            liczbaBomb++;
+            punkty -= 15;
+        } else {
+            throw new IllegalStateException("Za mało punktów, aby kupić bombę!");
+        }
+    }
+    public void zuzyjBombe() {
+        if (liczbaBomb > 0) {
+            liczbaBomb--;
+        }
+    }
+
+    @Override
+    public Label getPunktyGracz() {
+        return null;
+    }
+
+    @Override
+    public Label getBombyGracz() {
+        return null;
     }
 
 }

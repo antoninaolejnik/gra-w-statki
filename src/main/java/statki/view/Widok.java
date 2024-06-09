@@ -1,8 +1,14 @@
 package statki.view;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import statki.controller.Kontroler;
@@ -11,6 +17,7 @@ import javafx.event.EventHandler;
 
 import statki.Stale;
 
+import statki.models.Gracz;
 import statki.models.IGracz;
 import statki.models.Plansza;
 
@@ -76,7 +83,9 @@ public class Widok extends Application {
                 int finalI = i;
                 int finalJ = j;
                 button.setOnAction(event -> eventHandler.handle(new ActionEvent(button, null)));
+                strzelajacy.buttonsgracz[i][j]= button;
                 gridPane.add(button, i, j);
+
             }
         }
         return gridPane;
@@ -88,7 +97,6 @@ public class Widok extends Application {
             for (int j = 0; j < 10; j++) {
                 Button przycisk = (Button) gridPane.getChildren().get(i * 10 + j);
                 int wartosc = plansza.wezPunkt(i, j);
-
                 if (wartosc == Stale.puste) {
                     przycisk.setStyle(Stale.kolor2);
                 } else if (wartosc == Stale.obok) {
@@ -122,7 +130,8 @@ public class Widok extends Application {
             }
         }
 
-        Button przyciskOrientacja = new Button(Stale.orientMozliwosc);
+//        Button przyciskOrientacja = new Button(Stale.orientMozliwosc);
+        Button przyciskOrientacja = new Button("poziomo/pionowo");
         przyciskOrientacja.setStyle(Stale.przyciskOrient);
 
         przyciskOrientacja.setOnMouseEntered(e -> przyciskOrientacja.setStyle(Stale.przyciskTlo1));
@@ -145,32 +154,35 @@ public class Widok extends Application {
         komunikatTekst.setText(komunikat);
     }
 
-    public Button wezButton(int x, int y, IGracz przeciwnik) {
-        Parent root = scena.getScene().getRoot();
-        if (root instanceof GridPane) {
-            GridPane gridPane = (GridPane) root;
-            int index = y * 10 + x;
-            Node node = gridPane.getChildren().get(index);
-            if (node instanceof Button) {
-                return (Button) node;
-            }
-        } else if (root instanceof HBox) {
-            HBox hBox = (HBox) root;
-            for (Node node : hBox.getChildren()) {
-                if (node instanceof GridPane) {
-                    GridPane gridPane = (GridPane) node;
-                    int index = y * 10 + x;
-                    Node innerNode = gridPane.getChildren().get(index);
-                    if (innerNode instanceof Button) {
-                        return (Button) innerNode;
-                    }
-                }
-            }
+public Button wezButton(int x, int y, IGracz przeciwnik) {
+    Parent root = scena.getScene().getRoot();
+    if (root instanceof HBox) {
+        HBox hBox = (HBox) root;
+        GridPane opponentGrid = (GridPane) hBox.getChildren().get(1);
+        int index = y * 10 + x;
+        Node node = opponentGrid.getChildren().get(index);
+        if (node instanceof Button) {
+            return (Button) node;
         }
-        return null;
     }
+    return null;
+}
 
+    public void endGame() {
+        StackPane endPane = new StackPane();
+        endPane.setStyle("-fx-background-color: black;");
 
+        Label endLabel = new Label("KONIEC GRY");
+        endLabel.setFont(Font.font("Serif", FontWeight.BOLD, 50));
+        endLabel.setTextFill(Color.WHITE);
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(endLabel);
+        vbox.setAlignment(Pos.CENTER);
+        endPane.getChildren().add(vbox);
+
+        Scene endScene = new Scene(endPane, 800, 600);
+        scena.setScene(endScene);
+    }
 
 
 }

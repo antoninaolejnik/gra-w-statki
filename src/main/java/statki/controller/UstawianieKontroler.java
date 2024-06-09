@@ -2,7 +2,6 @@ package statki.controller;
 
 import javafx.scene.control.Button;
 import statki.Stale;
-import statki.models.Gracz;
 import statki.models.IGracz;
 import statki.models.Statek;
 import statki.view.Komunikator;
@@ -88,7 +87,6 @@ public class UstawianieKontroler {
                     return;
                 }
             } else {
-
                 komunikator.wyswietlCustomAlert(Stale.zleMiejsce, 5);
             }
         }
@@ -102,8 +100,10 @@ public class UstawianieKontroler {
     }
 
     public void rozpocznijGre(IGracz gracz1, IGracz gracz2) {
-        KontrolerGra mainController = new KontrolerGra(view);
-        mainController.rozpocznijGre(gracz1, gracz2, czyZKomputerem);
+        KontrolerGraZKomputerem mainController = new KontrolerGraZKomputerem(view);
+        KontrolerGrazPrzyjacielem mainController2 = new KontrolerGrazPrzyjacielem(view);
+        if(czyZKomputerem) mainController.rozpocznijGre(gracz1, gracz2, czyZKomputerem);
+        else mainController2.rozpocznijGre(gracz1, gracz2, czyZKomputerem);
     }
 
 

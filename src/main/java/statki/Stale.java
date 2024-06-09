@@ -86,7 +86,7 @@ public class Stale {
             zleMiejsce=properties.getProperty("nie_mozna_ustawic");
             pion=properties.getProperty("pion");
             poziom=properties.getProperty("poziom");
-            zmianaOrient=properties.getProperty("zmien_orientacje");
+            zmianaOrient=properties.getProperty("poziomo/pionowo");
             kolorZestrzelony=properties.getProperty("kolor_zestrzelony");
             String[] dlugosciStatkowStr = properties.getProperty("dlugosci_statkow").split(",");
             dlugosciStatkow = new int[dlugosciStatkowStr.length];

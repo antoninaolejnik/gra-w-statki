@@ -38,7 +38,6 @@ public class Plansza {
         for(int i=0;i<10;i++){
             for(int j=0;j<10;j++){
                 plansza[i][j]=Stale.puste;
-
             }
         }
     }

@@ -3,7 +3,6 @@ import javafx.scene.control.Button;
 import statki.Stale;
 import statki.models.Gracz;
 import statki.models.IGracz;
-import statki.models.Komputer;
 import statki.view.Komunikator;
 import statki.view.Widok;
 
@@ -16,7 +15,8 @@ public class Kontroler {
     private IGracz gracz2;
     private Random random;
     private int[] dlugosciStatkow =Stale.dlugosciStatkow;
-    private KontrolerGra gameController;
+    private KontrolerGraZKomputerem gameController;
+    private KontrolerGrazPrzyjacielem gameController2;
     private boolean czyZKomputerem;
 
 
@@ -29,7 +29,7 @@ public class Kontroler {
         this.czyZKomputerem=czyZKomputerem;
         //int[] dlugosciStatkow = {4, 3, 3, 2, 2, 2, 1, 1, 1, 1};
         this.ustawianieKontroler = new UstawianieKontroler(view, dlugosciStatkow,czyZKomputerem);
-        this.gameController = new KontrolerGra(view);
+        this.gameController = new KontrolerGraZKomputerem(view);
     }
 
     public void zacznijGre() {
@@ -39,7 +39,8 @@ public class Kontroler {
             gracz2 = wezLubUtworz(Stale.komputer);
         else{
         String imie2 = pobierzImie(Stale.podajImie+Stale.drugiGracz);
-        gracz2 = wezLubUtworz(imie2);}
+        gracz2 = wezLubUtworz(imie2);
+        }
 
         view.wyswietlPlansze(gracz1);
 
@@ -50,6 +51,7 @@ public class Kontroler {
     }
 
     public void kliknieciePrzycisku(int x, int y, Button button) {
+//        System.out.println("klik: "+x+" "+y);
         if (!ustawianieKontroler.pierwszyGraczUstawilStatki()) {
             ustawianieKontroler.kliknieciePrzycisku(x, y, button, gracz1, gracz2);
         } else {
@@ -57,9 +59,9 @@ public class Kontroler {
                 do {
                     x = random.nextInt(10);
                     y = random.nextInt(10);
-                    ustawianieKontroler.kliknieciePrzycisku(x, y, button, gracz1, gracz2);
+                    ustawianieKontroler.kliknieciePrzycisku(x, y, button, gracz1, gracz2); //XD
                 } while (ustawianieKontroler.pom!=Stale.iloscStatkow);
-                ustawianieKontroler.rozpocznijGre(gracz1,gracz2);
+                ustawianieKontroler.rozpocznijGre(gracz1,gracz2);//!!!
             }else
                 ustawianieKontroler.kliknieciePrzycisku(x, y, button, gracz1, gracz2);
         }
@@ -70,6 +72,13 @@ public class Kontroler {
 
     public UstawianieKontroler getSetupController() {
         return ustawianieKontroler;
+    }
+    public IGracz getGracz1() {
+        return gracz1;
+    }
+
+    public IGracz getGracz2() {
+        return gracz2;
     }
 
 }

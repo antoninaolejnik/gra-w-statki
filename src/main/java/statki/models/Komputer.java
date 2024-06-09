@@ -1,6 +1,7 @@
 package statki.models;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import statki.Stale;
 
 import java.util.Random;
@@ -65,6 +66,32 @@ public class Komputer implements IGracz {
         }
         czyZKolei = wart;
     }
+
+    @Override
+    public int wezLiczbaBomb() {
+        return 0;
+    }
+
+    @Override
+    public void kupBombe() {
+
+    }
+
+    @Override
+    public void zuzyjBombe() {
+
+    }
+
+    @Override
+    public Label getPunktyGracz() {
+        return null;
+    }
+
+    @Override
+    public Label getBombyGracz() {
+        return null;
+    }
+
     public void generujrand(int x, int y){
         x = random.nextInt(Stale.rozmiarPlanszy);
         y = random.nextInt(Stale.rozmiarPlanszy);
