@@ -69,9 +69,9 @@ public class Stale {
     public static String koniecGry1;
     public static String infoGra;
     public static String zamknij;
-    public static final String samolot = "Samoloty";
-    public static final String kupSamolot = "Kup Samolot";
-    public static final String strzelSamolot = "Strzel Samolotem";
+    public static final String samolot = "Gazociag";
+    public static final String kupSamolot = "Kup Gazociag";
+    public static final String strzelSamolot = "Wybuchnij gazociag";
 //    public static final int KOSZT_SAMOLOTU = 50; // przykładowa cena
 
 

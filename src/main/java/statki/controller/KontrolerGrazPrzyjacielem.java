@@ -322,7 +322,8 @@ public void zaktualizujPunktyIBomby() {
             wlaczStrzelanieSamolot(gracz);
             zaktualizujPunktyIBomby();
         } else {
-            komunikator.wyswietlCustomAlert("Za mało samolotów!", 2);
+//            komunikator.wyswietlCustomAlert("Za mało samolotów!", 2);
+            komunikator.wyswietlCustomAlert("Za mało gazociagow!", 2);
         }
     }
 
