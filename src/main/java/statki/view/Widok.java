@@ -109,7 +109,8 @@ public class Widok extends Application {
 
     public void wyswietlPlanszeDoStrzelania(GridPane gridPane1, GridPane gridPane2) {
         HBox hBox = new HBox(10, gridPane1, gridPane2);
-        Scene scene = new Scene(hBox, 800, 400);
+//        Scene scene = new Scene(hBox, 800, 400);
+        Scene scene = new Scene(hBox, 850, 450);
         scena.setScene(scene);
         scena.setTitle(Stale.tytul);
         scena.show();

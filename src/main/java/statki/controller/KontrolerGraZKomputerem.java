@@ -100,7 +100,7 @@ public class KontrolerGraZKomputerem implements KontrolerGry{
                 }
 
                 if (przeciwnik.wezStatki().wszystkie[rodzaj].wezRodzaj(ktory).czyJestZbity()) {
-                    komunikator.wyswietlCustomAlert(Stale.trafionyZatopiony+" \uD83D\uDEA2", Stale.sekundy);
+//                    komunikator.wyswietlCustomAlert(Stale.trafionyZatopiony+" \uD83D\uDEA2", Stale.sekundy);
                     przeciwnik.wezStatki().ilosc_aktywnych--;
                     if (przeciwnik.wezStatki().ilosc_aktywnych == 0) {
                         isCzyKoniec = true;

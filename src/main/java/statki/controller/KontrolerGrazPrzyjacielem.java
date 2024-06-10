@@ -142,6 +142,8 @@ private void strzelaniePrzycisk(int x, int y, Button button, IGracz strzelajacy,
         } else {
             komunikator.wyswietlCustomAlert(Stale.ruchDrugiego, Stale.sekundy);
         }
+    } else {
+        view.endGame(); //???
     }
 }
 
@@ -304,6 +306,7 @@ public void zaktualizujPunktyIBomby() {
                 przeciwnik.wezPlanszeWypisywana().ustaw(x,y,Stale.obok); //????
 
             } else {
+                view.endGame(); //???
             }
         }
     }

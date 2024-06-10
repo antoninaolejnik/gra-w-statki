@@ -63,12 +63,16 @@ public class UstawianieKontroler {
                 view.aktualizujPlansze(gracz.wezPlanszePrzeciwnika());
                 return true;
             } else {
-                if(gracz instanceof Gracz)
-                    komunikator.wyswietlCustomAlert(Stale.zleMiejsce, Stale.sekundy);
+                if(!czyZKomputerem) {
+                    if (gracz instanceof Gracz)
+                        komunikator.wyswietlCustomAlert(Stale.zleMiejsce, Stale.sekundy);
+                }
             }
         } else {
-            if(gracz instanceof Gracz)
-                komunikator.wyswietlCustomAlert(Stale.zleMiejsce, Stale.sekundy);
+            if(!czyZKomputerem) {
+                if (gracz instanceof Gracz)
+                    komunikator.wyswietlCustomAlert(Stale.zleMiejsce, Stale.sekundy);
+            }
         }
         return false;
     }
@@ -118,6 +122,7 @@ public class UstawianieKontroler {
     public void zmienOrientacje() {
         czyPionowo = !czyPionowo;
         String orientacja = czyPionowo ? Stale.pion : Stale.poziom;
-        komunikator.wyswietlCustomAlert(Stale.zmianaOrient + orientacja, Stale.sekundy);
+//        komunikator.wyswietlCustomAlert(Stale.zmianaOrient + orientacja, Stale.sekundy);
+        komunikator.wyswietlCustomAlert(orientacja, Stale.sekundy);
     }
 }
