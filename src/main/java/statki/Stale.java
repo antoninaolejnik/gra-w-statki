@@ -56,6 +56,7 @@ public class Stale {
     public static String kolor1;
     public static String kolor2;
     public static String kolor3;
+    public static String czarny;
     public static String kolor4;
     public static String wszytskieUstawione;
     public static String ustawianieDlugosc;
@@ -69,11 +70,12 @@ public class Stale {
     public static String koniecGry1;
     public static String infoGra;
     public static String zamknij;
-    public static final String samolot = "Gazociag";
-    public static final String kupSamolot = "Kup Gazociag";
-    public static final String strzelSamolot = "Wybuchnij gazociag";
-    public static String zaMaloGazociagow="Za malo gazociagow";
-    public static String poziomPion="pionowo/poziomo";
+    public static String headerStyle;
+    public static  String samolot ;
+    public static  String kupSamolot ;
+    public static  String strzelSamolot;
+    public static String zaMaloGazociagow;
+    public static String poziomPion;
 
 
 
@@ -154,8 +156,14 @@ public class Stale {
             jakGracHeader = properties.getProperty("jak_grac_header");
             jakGracText = properties.getProperty("jak_grac_text");
             koniecGry1 = properties.getProperty("koniec_gry1");
-
+            headerStyle= properties.getProperty("header_style");
             nazwy = properties.getProperty("nazwy").split(",");
+            samolot=properties.getProperty("samolot");
+            kupSamolot =properties.getProperty("kupSamolot");
+           strzelSamolot=properties.getProperty("strzelSamolot");
+            zaMaloGazociagow=properties.getProperty("zaMaloGazociagow");
+            poziomPion=properties.getProperty("poziomPion");
+            czarny=properties.getProperty("czarny");
 
         } catch (IOException ex) {
             ex.printStackTrace();

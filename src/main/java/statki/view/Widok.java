@@ -72,7 +72,7 @@ public class Widok extends Application {
         vbox.setStyle(Stale.kolor5);
 
         Label header = new Label(Stale.jakGracHeader);
-        header.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+        header.setStyle(Stale.headerStyle);
 
         TextArea infoText = new TextArea();
         infoText.setText("Statki to gra wojenna, w której dwóch graczy próbuje zatopić statki przeciwnika.\n" +
@@ -81,7 +81,7 @@ public class Widok extends Application {
                 "Statki mogą być ustawione poziomo lub pionowo i nie mogą się dotykać.\n" +
                 "Gracz ustawia statki wybierając miejsce początku statku.\n"+
                 "Po ustawieniu statków, gracze na przemian oddają strzały, próbując trafić statki przeciwnika.\n" +
-                "Gra kończy się, gdy wszystkie statki jednego z graczy zostaną zatopione.");
+                "Gra kończy się, gdy wszystkie statki jednego z graczy zostaną zatopione.");//tekst napisany tu a nie w configu ze wzgledu na polskie znaki
         infoText.setWrapText(true);
         infoText.setEditable(false);
 
@@ -200,7 +200,7 @@ public class Widok extends Application {
     }
     public void endGame() {
         StackPane endPane = new StackPane();
-        endPane.setStyle("-fx-background-color: black;");
+        endPane.setStyle(Stale.czarny);
 
         Label endLabel = new Label(Stale.koniecGry1);
         endLabel.setFont(Font.font("Serif", FontWeight.BOLD, 50));
