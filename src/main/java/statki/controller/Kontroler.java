@@ -16,7 +16,6 @@ public class Kontroler {
     private IGracz gracz2;
     private Random random;
     private int[] dlugosciStatkow =Stale.dlugosciStatkow;
-    private KontrolerGraZKomputerem gameController;
 
     private boolean czyZKomputerem;
 
@@ -29,7 +28,6 @@ public class Kontroler {
         random=new Random();
         this.czyZKomputerem=czyZKomputerem;
         this.ustawianieKontroler = new UstawianieKontroler(view, dlugosciStatkow,czyZKomputerem);
-        this.gameController = new KontrolerGraZKomputerem(view);
     }
 
     public void zacznijGre() {
@@ -41,11 +39,11 @@ public class Kontroler {
         }
 
         else{
-        String imie2 = pobierzImie(Stale.podajImie+Stale.drugiGracz);
-        while(imie2.equals(imie1)){
-            imie2 = pobierzImie("Podaj inne imie");
-        }
-        gracz2 = wezLubUtworz(imie2);
+            String imie2 = pobierzImie(Stale.podajImie+Stale.drugiGracz);
+            while(imie2.equals(imie1)){
+                imie2 = pobierzImie(Stale.inneImie);
+            }
+            gracz2 = wezLubUtworz(imie2);
         }
 
         view.wyswietlPlansze(gracz1);
@@ -75,15 +73,8 @@ public class Kontroler {
         return Stale.gracze.computeIfAbsent(imie, Gracz::new);
     }
 
-    public UstawianieKontroler getSetupController() {
+    public UstawianieKontroler wezUstawianieKontroler() {
         return ustawianieKontroler;
-    }
-    public IGracz getGracz1() {
-        return gracz1;
-    }
-
-    public IGracz getGracz2() {
-        return gracz2;
     }
 
 }

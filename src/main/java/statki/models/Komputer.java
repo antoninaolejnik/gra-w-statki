@@ -1,12 +1,9 @@
 package statki.models;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import statki.Stale;
 
-import java.util.Random;
 
-import java.util.Random;
 
 public class Komputer implements IGracz {
     private Plansza planszaPrzeciwnika;
@@ -14,16 +11,15 @@ public class Komputer implements IGracz {
     private StatkiWszytskie statki;
     private String imie;
     private int punkty;
-    private int mnoznik = 1;
+    private int mnoznik = 1;//aktualny stan mnoznika
     private boolean czyZKolei = false;
-    private Random random;
+    private Button[][] buttonsGracz;
 
     public Komputer() {
         this.planszaPrzeciwnika = new Plansza();
         this.planszaWypisywana = new Plansza();
         this.statki = new StatkiWszytskie();
         this.imie = Stale.komputer;
-        this.random = new Random();
         punkty = 0;
     }
 
@@ -67,49 +63,17 @@ public class Komputer implements IGracz {
         czyZKolei = wart;
     }
 
-    @Override
-    public int wezLiczbaBomb() {
-        return 0;
-    }
+
 
     @Override
-    public void kupBombe() {
-
+    public Button[][] getButtonsGracz() {
+        return new Button[0][];
     }
+
 
     @Override
-    public void zuzyjBombe() {
-
-    }
-
-    @Override
-    public Label getPunktyGracz() {
-        return null;
-    }
-
-    @Override
-    public Label getBombyGracz() {
-        return null;
-    }
-
-    @Override
-    public void kupSamolot() {
-
-    }
-
-    @Override
-    public void zuzyjSamolot() {
-
-    }
-
-    @Override
-    public int wezLiczbaSamolotow() {
-        return 0;
-    }
-
-    public void generujrand(int x, int y){
-        x = random.nextInt(Stale.rozmiarPlanszy);
-        y = random.nextInt(Stale.rozmiarPlanszy);
+    public void dopiszButtons(){
+        this.buttonsGracz=new Button[10][10];
     }
 
 

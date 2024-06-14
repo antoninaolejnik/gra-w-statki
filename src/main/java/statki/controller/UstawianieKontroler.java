@@ -4,23 +4,22 @@ import javafx.scene.control.Button;
 import statki.Stale;
 import statki.models.Gracz;
 import statki.models.IGracz;
-import statki.models.Komputer;
 import statki.models.Statek;
 import statki.view.Komunikator;
 import statki.view.Widok;
 
 public class UstawianieKontroler {
     Komunikator komunikator=new Komunikator();
-    private Widok view;
+    private Widok widok;
     private boolean pierwszyGraczUstawilStatki;
     private int[] dlugosciStatkow;
-    int pom;
+    int pom;//liczenie ktory statek teraz rozwazamy
     private boolean czyPionowo;
     private int dlugoscStatku;
     private boolean czyZKomputerem;
 
     public UstawianieKontroler(Widok view, int[] dlugosciStatkow, boolean czyZKomputerem) {
-        this.view = view;
+        this.widok = view;
         this.czyZKomputerem=czyZKomputerem;
         this.dlugosciStatkow = dlugosciStatkow;
         this.pom = 0;
@@ -43,7 +42,7 @@ public class UstawianieKontroler {
             if (pom == Stale.iloscStatkow) {
                 pierwszyGraczUstawilStatki = true;
                 this.pom = 0;
-                view.wyswietlPlansze(gracz);
+                widok.wyswietlPlansze(gracz);
                 czyPionowo = false;
                 return true;
             }
@@ -60,7 +59,7 @@ public class UstawianieKontroler {
                 this.pom++;
                 aktualnystatek.wstawStatek(gracz.wezPlanszePrzeciwnika());
                 aktualnystatek.wpiszPola(gracz.wezPlanszePrzeciwnika());
-                view.aktualizujPlansze(gracz.wezPlanszePrzeciwnika());
+                widok.aktualizujPlansze(gracz.wezPlanszePrzeciwnika());
                 return true;
             } else {
                 if(!czyZKomputerem) {
@@ -109,8 +108,8 @@ public class UstawianieKontroler {
     }
 
     public void rozpocznijGre(IGracz gracz1, IGracz gracz2) {
-        KontrolerGraZKomputerem mainController = new KontrolerGraZKomputerem(view);
-        KontrolerGrazPrzyjacielem mainController2 = new KontrolerGrazPrzyjacielem(view);
+        KontrolerGraZKomputerem mainController = new KontrolerGraZKomputerem(widok);
+        KontrolerGrazPrzyjacielem mainController2 = new KontrolerGrazPrzyjacielem(widok,(Gracz)gracz1,(Gracz)gracz2);
         if(czyZKomputerem) mainController.rozpocznijGre(gracz1, gracz2, czyZKomputerem);
         else mainController2.rozpocznijGre(gracz1, gracz2, czyZKomputerem);
     }
@@ -122,7 +121,6 @@ public class UstawianieKontroler {
     public void zmienOrientacje() {
         czyPionowo = !czyPionowo;
         String orientacja = czyPionowo ? Stale.pion : Stale.poziom;
-//        komunikator.wyswietlCustomAlert(Stale.zmianaOrient + orientacja, Stale.sekundy);
         komunikator.wyswietlCustomAlert(orientacja, Stale.sekundy);
     }
 }

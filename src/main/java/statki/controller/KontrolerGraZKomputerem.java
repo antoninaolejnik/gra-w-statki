@@ -1,12 +1,10 @@
 package statki.controller;
-
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import statki.Stale;
 import statki.models.IGracz;
 import statki.view.Komunikator;
 import statki.view.Widok;
-
 import java.util.Random;
 
 public class KontrolerGraZKomputerem implements KontrolerGry{
@@ -38,32 +36,26 @@ public class KontrolerGraZKomputerem implements KontrolerGry{
         });
 
         GridPane gridPane2 = view.tworzPlansze(gracz2, gracz1, event -> {
-//            Button button = (Button) event.getSource();
-//            strzelaniePrzycisk(GridPane.getRowIndex(button), GridPane.getColumnIndex(button), button, gracz2, gracz1, czyZKomputerem);
-
         });
-
-
         view.wyswietlPlanszeDoStrzelania(gridPane1, gridPane2);
     }
 
     private void strzelaniePrzycisk(int x, int y, Button button, IGracz strzelajacy, IGracz przeciwnik, boolean czyZKomputerem) {
-        if (!isCzyKoniec) {
-            if (aktualnyGracz == przeciwnik) {
-                if (przeciwnik.wezPlanszePrzeciwnika().wezPunkt(x, y) >= 0) {
+        if (isCzyKoniec) return;
+        if (aktualnyGracz == przeciwnik) {
+            if (przeciwnik.wezPlanszePrzeciwnika().wezPunkt(x, y) >= 0) {
 
-                    jedenStrzal(x, y, button, strzelajacy, przeciwnik,czyZKomputerem);
-                } else {
-                    nietrafiony(button, strzelajacy,przeciwnik);
-                    if (czyZKomputerem) {
-                        komputerowyRuch(przeciwnik, strzelajacy);
-                    }
-                }
+                jedenStrzal(x, y, button, strzelajacy, przeciwnik,czyZKomputerem);
             } else {
-                //komunikator.wyswietlCustomAlert(Stale.ruchDrugiego, Stale.sekundy);
-                nietrafiony(button,strzelajacy,przeciwnik);
+                nietrafiony(button, strzelajacy,przeciwnik);
+                if (czyZKomputerem) {
+                    komputerowyRuch(przeciwnik, strzelajacy);
+                }
             }
+        } else {
+            nietrafiony(button,strzelajacy,przeciwnik);
         }
+
     }
 
     private void komputerowyRuch(IGracz komputer, IGracz przeciwnik) {
@@ -84,6 +76,12 @@ public class KontrolerGraZKomputerem implements KontrolerGry{
         button.setStyle(Stale.kolorZestrzelony);
         strzelajacy.dodajPunkt();
         strzelajacy.czyStreak(true);
+        aktualizujStatki(x, y, strzelajacy, przeciwnik);
+
+        button.setDisable(true);
+    }
+
+    private void aktualizujStatki(int x, int y, IGracz strzelajacy, IGracz przeciwnik) {
         int ktory = przeciwnik.wezPlanszePrzeciwnika().wezPunkt(x, y) % 10;
         int rodzaj = (przeciwnik.wezPlanszePrzeciwnika().wezPunkt(x, y) - ktory) / 10 - 1;
 
@@ -92,25 +90,29 @@ public class KontrolerGraZKomputerem implements KontrolerGry{
                 przeciwnik.wezStatki().wszystkie[rodzaj].wezRodzaj(ktory).ustawPole(i, Stale.puste2);
                 przeciwnik.wezStatki().wszystkie[rodzaj].wezRodzaj(ktory).ustawZbity(true);
 
-                for (int j = 0; j < przeciwnik.wezStatki().wszystkie[rodzaj].wezDlugosc(); j++) {
-                    if (przeciwnik.wezStatki().wszystkie[rodzaj].wezRodzaj(ktory).wezPole(j) != Stale.puste2) {
-                        przeciwnik.wezStatki().wszystkie[rodzaj].wezRodzaj(ktory).ustawZbity(false);
-                        break;
-                    }
+                if (!sprawdzCzyZbity(przeciwnik, rodzaj, ktory)) {
+                    przeciwnik.wezStatki().wszystkie[rodzaj].wezRodzaj(ktory).ustawZbity(false);
                 }
 
                 if (przeciwnik.wezStatki().wszystkie[rodzaj].wezRodzaj(ktory).czyJestZbity()) {
-//                    komunikator.wyswietlCustomAlert(Stale.trafionyZatopiony+" \uD83D\uDEA2", Stale.sekundy);
                     przeciwnik.wezStatki().ilosc_aktywnych--;
                     if (przeciwnik.wezStatki().ilosc_aktywnych == 0) {
                         isCzyKoniec = true;
-                        komunikator.wyswietlCustomAlert(Stale.koniecGry + drugi.wezImie(), Stale.sekundy);
+                        view.wyswietlKomunikat(Stale.koniecGry + drugi.wezImie());
                         view.endGame();
                     }
                 }
             }
         }
-        button.setDisable(true);
+    }
+
+    private boolean sprawdzCzyZbity(IGracz przeciwnik, int rodzaj, int ktory) {
+        for (int j = 0; j < przeciwnik.wezStatki().wszystkie[rodzaj].wezDlugosc(); j++) {
+            if (przeciwnik.wezStatki().wszystkie[rodzaj].wezRodzaj(ktory).wezPole(j) != Stale.puste2) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void nietrafiony(Button button, IGracz strzelajacy, IGracz przeciwnik) {

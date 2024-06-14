@@ -42,9 +42,7 @@ public class Plansza {
     public int wezPunkt(int x, int y){
         return plansza[x][y];
     }
-    public void ustaw(int x, int y, int wart){
-        plansza[x][y]=wart;
-    }
+
 
 
 

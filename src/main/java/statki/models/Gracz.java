@@ -13,13 +13,15 @@ public class Gracz implements IGracz{
     private int punkty;
     private int mnoznik=1;
     private boolean czyZKolei=false;
-   // public Button[][] buttonsgracz;
-   private Button[][] buttonsGracz;
+    private Button[][] buttonsGracz;
     private int liczbaBomb = 0;
     public Label punktyGracz;
     public Label bombyGracz;
-    private int liczbaSamolotow = 0;
 
+    private int liczbaSamolotow = 0;
+    public boolean czyStrzelanie=false;
+    public boolean czyStrzelanieSamolot=false;
+    public Label samolotyGracz = new Label();
 
     public Gracz() {
         this.planszaPrzeciwnika = new Plansza();
@@ -43,6 +45,20 @@ public class Gracz implements IGracz{
     public Plansza wezPlanszePrzeciwnika(){
         return planszaPrzeciwnika;
     }
+    public Button[][] getButtonsGracz() {
+        return buttonsGracz;
+    }
+
+    public Label getSamolotyGracz() {
+        return samolotyGracz;
+    }
+    public void wlaczStrzelanie(){
+        czyStrzelanie=true;
+    }
+    public void wylaczStrzelanie(){
+        czyStrzelanie=true;
+    }
+
     public Plansza wezPlanszeWypisywana(){
         return planszaWypisywana;
     }
@@ -87,12 +103,10 @@ public class Gracz implements IGracz{
         }
     }
 
-    @Override
     public Label getPunktyGracz() {
         return null;
     }
 
-    @Override
     public Label getBombyGracz() {
         return null;
     }
@@ -102,18 +116,31 @@ public class Gracz implements IGracz{
             punkty -= 80;
             liczbaSamolotow++;
         } else {
-            throw new IllegalStateException("Za mało punktów na samolot!");
+           return;
         }
     }
     public void zuzyjSamolot() {
         if (liczbaSamolotow > 0) {
             liczbaSamolotow--;
         } else {
-            throw new IllegalStateException("Brak samolotów!");
+            return;
         }
     }
 
     public int wezLiczbaSamolotow() {
         return liczbaSamolotow;
+    }
+    @Override
+    public void dopiszButtons(){
+        this.buttonsGracz=new Button[10][10];
+    }
+    public Button jedenButton(int x, int y){
+        return this.buttonsGracz[x][y];
+    }
+    public void wylaczStrzelanieSamolot() {
+        czyStrzelanieSamolot = false;
+    }
+    public void wlaczStrzelanieSamolot() {
+        czyStrzelanieSamolot = true;
     }
 }

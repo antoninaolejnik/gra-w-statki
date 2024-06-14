@@ -72,7 +72,8 @@ public class Stale {
     public static final String samolot = "Gazociag";
     public static final String kupSamolot = "Kup Gazociag";
     public static final String strzelSamolot = "Wybuchnij gazociag";
-//    public static final int KOSZT_SAMOLOTU = 50; // przykładowa cena
+    public static String zaMaloGazociagow="Za malo gazociagow";
+    public static String poziomPion="pionowo/poziomo";
 
 
 

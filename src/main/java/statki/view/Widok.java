@@ -17,13 +17,9 @@ import javafx.stage.Stage;
 import statki.controller.Kontroler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-
 import statki.Stale;
-
-import statki.models.Gracz;
 import statki.models.IGracz;
 import statki.models.Plansza;
-
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -109,8 +105,7 @@ public class Widok extends Application {
 
     public void wyswietlPlanszeDoStrzelania(GridPane gridPane1, GridPane gridPane2) {
         HBox hBox = new HBox(10, gridPane1, gridPane2);
-//        Scene scene = new Scene(hBox, 800, 400);
-        Scene scene = new Scene(hBox, 850, 450);
+        Scene scene = new Scene(hBox, 950, 450);
         scena.setScene(scene);
         scena.setTitle(Stale.tytul);
         scena.show();
@@ -122,8 +117,6 @@ public class Widok extends Application {
             for (int j = 0; j < 10; j++) {
                 Button button = new Button();
                 button.setMinSize(40, 40);
-                int finalI = i;
-                int finalJ = j;
                 button.setOnAction(event -> eventHandler.handle(new ActionEvent(button, null)));
                 strzelajacy.buttonsgracz[i][j]= button;
                 gridPane.add(button, i, j);
@@ -158,7 +151,6 @@ public class Widok extends Application {
         if(indeks==10)
             indeks=0;
     }
-
     public void wyswietlPlansze(IGracz gracz) {
         GridPane gridPane = new GridPane();
         for (int i = 0; i < 10; i++) {
@@ -171,13 +163,12 @@ public class Widok extends Application {
                 gridPane.add(przycisk, i, j);
             }
         }
-//        Button przyciskOrientacja = new Button(Stale.orientMozliwosc);
-        Button przyciskOrientacja = new Button("poziomo/pionowo");
+        Button przyciskOrientacja = new Button(Stale.poziomPion);
         przyciskOrientacja.setStyle(Stale.przyciskOrient);
 
         przyciskOrientacja.setOnMouseEntered(e -> przyciskOrientacja.setStyle(Stale.przyciskTlo1));
         przyciskOrientacja.setOnMouseExited(e -> przyciskOrientacja.setStyle(Stale.przyciskTlo2));
-        przyciskOrientacja.setOnAction(event -> kontroler.getSetupController().zmienOrientacje());
+        przyciskOrientacja.setOnAction(event -> kontroler.wezUstawianieKontroler().zmienOrientacje());
 
         gridPane.add(przyciskOrientacja, 11, 0, 2, 1);
 
@@ -190,25 +181,23 @@ public class Widok extends Application {
         scena.setTitle(Stale.tytul);
         scena.show();
     }
-
     public void wyswietlKomunikat(String komunikat) {
         komunikatTekst.setText(komunikat);
     }
 
-public Button wezButton(int x, int y, IGracz przeciwnik) {
-    Parent root = scena.getScene().getRoot();
-    if (root instanceof HBox) {
-        HBox hBox = (HBox) root;
-        GridPane opponentGrid = (GridPane) hBox.getChildren().get(1);
-        int index = y * 10 + x;
-        Node node = opponentGrid.getChildren().get(index);
-        if (node instanceof Button) {
-            return (Button) node;
+    public Button wezButton(int x, int y, IGracz przeciwnik) {
+        Parent root = scena.getScene().getRoot();
+        if (root instanceof HBox) {
+            HBox hBox = (HBox) root;
+            GridPane opponentGrid = (GridPane) hBox.getChildren().get(1);
+            int index = y * 10 + x;
+            Node node = opponentGrid.getChildren().get(index);
+            if (node instanceof Button) {
+                return (Button) node;
+            }
         }
+        return null;
     }
-    return null;
-}
-
     public void endGame() {
         StackPane endPane = new StackPane();
         endPane.setStyle("-fx-background-color: black;");
@@ -221,7 +210,7 @@ public Button wezButton(int x, int y, IGracz przeciwnik) {
         vbox.setAlignment(Pos.CENTER);
         endPane.getChildren().add(vbox);
 
-        Scene endScene = new Scene(endPane, 800, 600);
+        Scene endScene = new Scene(endPane, 600, 400);
         scena.setScene(endScene);
     }
 
