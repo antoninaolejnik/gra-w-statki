@@ -198,8 +198,7 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
     }
 
     public void strzalBomba(int x, int y, Button button, Gracz przeciwnik, Gracz strzelajacy) {
-       if(strzelajacy.wezLiczbaBomb()==0)
-           return;
+
         if (x >= 0 && x < 10 && y >= 0 && y < 10) {
             for (int i = -1; i <= 1; i++) {
                 for (int j = -1; j <= 1; j++) {
@@ -223,6 +222,7 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
 
 
 
+
     private void kupSamolot(Gracz gracz, Gracz gracz2) {
         gracz.kupSamolot();
         zaktualizujPunktyIBomby(gracz2);
@@ -239,8 +239,6 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
     }
 
     private void strzalSamolot(int x, Gracz strzelajacy, Gracz przeciwnik) {
-        if(strzelajacy.wezLiczbaBomb()==0)
-            return;
         for (int y = 0; y < Stale.rozmiarPlanszy; y++) {
             Button targetButton = (strzelajacy == graczA) ? strzelajacy.jedenButton(x, y)  : przeciwnik.jedenButton(x, y) ;
             strzelaniePrzycisk(x, y, targetButton, strzelajacy, przeciwnik);
