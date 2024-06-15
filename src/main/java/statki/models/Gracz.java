@@ -56,7 +56,7 @@ public class Gracz implements IGracz{
         czyStrzelanie=true;
     }
     public void wylaczStrzelanie(){
-        czyStrzelanie=true;
+        czyStrzelanie=false;
     }
 
     public Plansza wezPlanszeWypisywana(){
@@ -134,9 +134,12 @@ public class Gracz implements IGracz{
     public void dopiszButtons(){
         this.buttonsGracz=new Button[10][10];
     }
-    public Button jedenButton(int x, int y){
-        return this.buttonsGracz[x][y];
-    }
+//    public Button jedenButton(int x, int y){
+//        return this.buttonsGracz[x][y];
+//    }
+public Button jedenButton(int x, int y){
+    return this.buttonsGracz[y][x];
+}
     public void wylaczStrzelanieSamolot() {
         czyStrzelanieSamolot = false;
     }

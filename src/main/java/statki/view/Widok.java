@@ -185,7 +185,7 @@ public class Widok extends Application {
         komunikatTekst.setText(komunikat);
     }
 
-    public Button wezButton(int x, int y, IGracz przeciwnik) {
+    public Button wezButton(int x, int y) {
         Parent root = scena.getScene().getRoot();
         if (root instanceof HBox) {
             HBox hBox = (HBox) root;

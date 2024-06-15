@@ -38,10 +38,11 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
     }
 
 
-    private GridPane utworzGridPane(Gracz gracz1, Gracz gracz2, boolean czyZKomputerem, Button[][] buttonsGracz) {
+    private GridPane utworzGridPane(Gracz gracz1, Gracz gracz2, Button[][] buttonsGracz) {
         GridPane gridPane = widok.tworzPlansze(gracz1, gracz2, event -> {
             Button button = (Button) event.getSource();
-            strzelaniePrzycisk(GridPane.getRowIndex(button), GridPane.getColumnIndex(button), button, gracz1, gracz2);
+            strzelaniePrzycisk(GridPane.getColumnIndex(button), GridPane.getRowIndex(button), button, gracz1, gracz2);
+
         });
 
         for (Node node : gridPane.getChildren()) {
@@ -64,15 +65,15 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
 
         Label samoloty = new Label(Stale.samolot + " " + gracz.wezLiczbaSamolotow());
         Button kupSamolot = new Button(Stale.kupSamolot);
-        kupSamolot.setOnAction(event -> kupSamolot(gracz,gracz2));
+        kupSamolot.setOnAction(event -> kupSamolot(gracz));
         Button strzelSamolot = new Button(Stale.strzelSamolot);
-        strzelSamolot.setOnAction(event -> ustawStrzalSamolot(gracz,gracz2));
+        strzelSamolot.setOnAction(event -> ustawStrzalSamolot(gracz));
 
         return new VBox(10, new Label(gracz.wezImie()), punkty, bomby, samoloty, kupBombe, strzelBomba, kupSamolot, strzelSamolot, gridPane);
     }
     private void wyswietlPlanszeDoStrzelania(Gracz gracz1, Gracz gracz2, boolean czyZKomputerem) {
-        GridPane gridPane1 = utworzGridPane(gracz1, gracz2, czyZKomputerem, gracz1.getButtonsGracz());
-        GridPane gridPane2 = utworzGridPane(gracz2, gracz1, czyZKomputerem, gracz2.getButtonsGracz());
+        GridPane gridPane1 = utworzGridPane(gracz1, gracz2,gracz1.getButtonsGracz());
+        GridPane gridPane2 = utworzGridPane(gracz2, gracz1, gracz2.getButtonsGracz());
 
         VBox vboxGracz1 = utworzVBoxGracza(gracz1,gracz2, czyZKomputerem,gracz1.getButtonsGracz() , gridPane1);
         VBox vboxGracz2 = utworzVBoxGracza(gracz2,gracz2, czyZKomputerem, gracz2.getButtonsGracz(), gridPane2);
@@ -104,7 +105,6 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
 
         int ktory = przeciwnik.wezPlanszePrzeciwnika().wezPunkt(x, y) % 10;
         int rodzaj = (przeciwnik.wezPlanszePrzeciwnika().wezPunkt(x, y) - ktory) / 10 - 1;
-
         aktualizujStanStatku(przeciwnik, rodzaj, ktory, x, y);
 
         button.setDisable(true);
@@ -179,8 +179,8 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
                     strzelajacy.wylaczStrzelanie();
                     zaktualizujPunktyIBomby(przeciwnik);
                 } else if (strzelajacy.czyStrzelanieSamolot) {
-                    strzalSamolot(x, strzelajacy, przeciwnik);
-                    strzelajacy.czyStrzelanieSamolot = false;
+                    strzalSamolot(y, strzelajacy, przeciwnik);
+                    strzelajacy.wylaczStrzelanieSamolot();
                     zaktualizujPunktyIBomby(przeciwnik);
                 } else {
                     if (przeciwnik.wezPlanszePrzeciwnika().wezPunkt(x, y) >= 0) {
@@ -197,8 +197,36 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
         }
     }
 
-    public void strzalBomba(int x, int y, Button button, Gracz przeciwnik, Gracz strzelajacy) {
+private void kupSamolot(Gracz gracz) {
+    gracz.kupSamolot();
+    zaktualizujPunktyIBomby(gracz);
 
+}
+private void ustawStrzalSamolot(Gracz gracz) {
+        if (gracz.wezLiczbaSamolotow() > 0) {
+            gracz.zuzyjSamolot();
+            gracz.wlaczStrzelanieSamolot();
+            zaktualizujPunktyIBomby(gracz);
+        } else {
+            komunikator.wyswietlCustomAlert(Stale.zaMaloGazociagow, Stale.sekundy);
+        }
+    }
+
+
+    private void strzalSamolot(int y, Gracz przeciwnik, Gracz strzelajacy) {
+        for (int x = 0; x < Stale.rozmiarPlanszy; x++) {
+        Button targetButton = przeciwnik.jedenButton(x, y);
+            if (przeciwnik.wezPlanszeWypisywana().wezPunkt(x, y) != 1) {
+                if (strzelajacy.wezPlanszePrzeciwnika().wezPunkt(x, y) >= 0) {
+                    jedenStrzal(x, y, targetButton, przeciwnik, strzelajacy);
+                } else {
+                    nietrafiony(targetButton, strzelajacy);
+                }
+            }
+        }
+        strzelajacy.wylaczStrzelanieSamolot();
+    }
+    public void strzalBomba(int x, int y, Button button, Gracz przeciwnik, Gracz strzelajacy) {
         if (x >= 0 && x < 10 && y >= 0 && y < 10) {
             for (int i = -1; i <= 1; i++) {
                 for (int j = -1; j <= 1; j++) {
@@ -207,8 +235,8 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
                     if (newX >= 0 && newX < 10 && newY >= 0 && newY < 10) {
                         Button targetButton = przeciwnik.jedenButton(newX, newY);
                         if (przeciwnik.wezPlanszeWypisywana().wezPunkt(newX, newY) != 1) {
-                            if (przeciwnik.wezPlanszePrzeciwnika().wezPunkt(newX, newY) >= 0) {
-                                jedenStrzal(newX, newY, targetButton, strzelajacy, przeciwnik);
+                            if (strzelajacy.wezPlanszePrzeciwnika().wezPunkt(newX, newY) >= 0) {
+                                jedenStrzal(newX, newY, targetButton, przeciwnik, strzelajacy);
                             } else {
                                 nietrafiony(targetButton, strzelajacy);
                             }
@@ -218,32 +246,6 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
             }
         }
         strzelajacy.wylaczStrzelanie();
-    }
-
-
-
-
-    private void kupSamolot(Gracz gracz, Gracz gracz2) {
-        gracz.kupSamolot();
-        zaktualizujPunktyIBomby(gracz2);
-
-    }
-    private void ustawStrzalSamolot(Gracz gracz,Gracz gracz2) {
-        if (gracz.wezLiczbaSamolotow() > 0) {
-            gracz.zuzyjSamolot();
-            gracz.wlaczStrzelanieSamolot();
-            zaktualizujPunktyIBomby(gracz2);
-        } else {
-            komunikator.wyswietlCustomAlert(Stale.zaMaloGazociagow, Stale.sekundy);
-        }
-    }
-
-    private void strzalSamolot(int x, Gracz strzelajacy, Gracz przeciwnik) {
-        for (int y = 0; y < Stale.rozmiarPlanszy; y++) {
-            Button targetButton = (strzelajacy == graczA) ? strzelajacy.jedenButton(x, y)  : przeciwnik.jedenButton(x, y) ;
-            strzelaniePrzycisk(x, y, targetButton, strzelajacy, przeciwnik);
-        }
-        strzelajacy.wylaczStrzelanieSamolot();
     }
 
 

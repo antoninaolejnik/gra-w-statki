@@ -64,7 +64,7 @@ public class KontrolerGraZKomputerem implements KontrolerGry{
             y = random.nextInt(Stale.rozmiarPlanszy);
         } while (komputer.wezPlanszeWypisywana().wezPunkt(x, y) != Stale.puste2);
         komputer.wezPlanszeWypisywana().ustawNaPlanszy(x,y,Stale.obok);
-        Button button = view.wezButton(y, x, przeciwnik);
+        Button button = view.wezButton(y, x);
         if (przeciwnik.wezPlanszePrzeciwnika().wezPunkt(x, y) >= 0) {
             strzelaniePrzycisk(x, y, button, komputer, przeciwnik, true);
             komputerowyRuch(komputer,przeciwnik);
