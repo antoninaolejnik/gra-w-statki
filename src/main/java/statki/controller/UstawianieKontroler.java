@@ -94,9 +94,7 @@ public class UstawianieKontroler {
                     return;
                 }
             }
-//            else {
-//                //komunikator.wyswietlCustomAlert(Stale.zleMiejsce, Stale.sekundy);
-//            }
+
         }
     }
 

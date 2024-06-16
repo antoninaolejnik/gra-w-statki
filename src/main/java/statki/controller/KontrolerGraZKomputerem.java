@@ -95,11 +95,11 @@ public class KontrolerGraZKomputerem implements KontrolerGry{
                 }
 
                 if (przeciwnik.wezStatki().wszystkie[rodzaj].wezRodzaj(ktory).czyJestZbity()) {
-                    przeciwnik.wezStatki().ilosc_aktywnych--;
-                    if (przeciwnik.wezStatki().ilosc_aktywnych == 0) {
+                    przeciwnik.wezStatki().iloscAktywnych--;
+                    if (przeciwnik.wezStatki().iloscAktywnych == 0) {
                         isCzyKoniec = true;
                         view.wyswietlKomunikat(Stale.koniecGry + drugi.wezImie());
-                        view.endGame();
+                        view.koniecGry();
                     }
                 }
             }

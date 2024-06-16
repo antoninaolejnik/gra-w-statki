@@ -198,7 +198,7 @@ public class Widok extends Application {
         }
         return null;
     }
-    public void endGame() {
+    public void koniecGry() {
         StackPane endPane = new StackPane();
         endPane.setStyle(Stale.czarny);
 

@@ -125,7 +125,7 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
 
                 if (przeciwnik.wezStatki().wszystkie[rodzaj].wezRodzaj(ktory).czyJestZbity()) {
                     komunikator.wyswietlCustomAlert(Stale.trafionyZatopiony + " \uD83D\uDEA2", Stale.sekundy);
-                    przeciwnik.wezStatki().ilosc_aktywnych--;
+                    przeciwnik.wezStatki().iloscAktywnych--;
                     sprawdzCzyKoniecGry(przeciwnik);
                 }
             }
@@ -133,10 +133,10 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
     }
 
     private void sprawdzCzyKoniecGry(Gracz przeciwnik) {
-        if (przeciwnik.wezStatki().ilosc_aktywnych == 0) {
+        if (przeciwnik.wezStatki().iloscAktywnych == 0) {
             isCzyKoniec = true;
             komunikator.wyswietlCustomAlert(Stale.koniecGry + drugi.wezImie(), Stale.sekundy);
-            widok.endGame();
+            widok.koniecGry();
         }
     }
 
@@ -193,7 +193,7 @@ public class KontrolerGrazPrzyjacielem implements KontrolerGry {
                 komunikator.wyswietlCustomAlert(Stale.ruchDrugiego, Stale.sekundy);
             }
         } else {
-            widok.endGame();
+            widok.koniecGry();
         }
     }
 
